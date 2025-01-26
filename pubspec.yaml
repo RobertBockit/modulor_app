@@ -56,6 +56,15 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - assets/fonts/
+  fonts:
+    - family: AtkinsonHyperlegible
+      fonts:
+        - asset: assets/fonts/AtkinsonHyperlegible-Regular.ttf
+        - asset: assets/fonts/AtkinsonHyperlegible-Bold.ttf
+        - asset: assets/fonts/AtkinsonHyperlegible-Italic.ttf
+        - asset: assets/fonts/AtkinsonHyperlegible-BoldItalic.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:
