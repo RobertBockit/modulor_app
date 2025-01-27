@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart'; // Add provider import
 import '../components/navbar/navbar.dart';
+import '../components/top_menu/top_menu.dart';
+import '../providers/app_state.dart'; // Import AppState
 import 'home_page.dart';
 import 'profile_page.dart';
 import 'cart_page.dart';
@@ -12,30 +15,40 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 0;
+  late final List<Widget> _pages;
 
-  // Define your pages
-  final List<Widget> _pages = [
-    HomePage(),
-    ProfilePage(),
-    CartPage(),
-    MenuPage(),
-    SupportPage(),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  @override
+  void initState() {
+    super.initState();
+    _pages = [
+      HomePage(), // Home page
+      ProfilePage(),
+      CartPage(),
+      MenuPage(),
+      SupportPage(),
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
+    // Access AppState
+    final appState = Provider.of<AppState>(context);
+
     return Scaffold(
-      body: _pages[_selectedIndex], // Display the current page
+      body: Stack(
+        children: [
+          _pages[appState.selectedIndex],
+
+          // The TopMenu stays at the top, not scrollable
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: TopMenu(),
+          ),
+        ],
+      ),
       bottomNavigationBar: BottomNavBar(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
       ),
     );
   }

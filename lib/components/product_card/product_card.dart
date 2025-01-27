@@ -3,11 +3,16 @@ import 'package:modulor_app/models/enums/currency.dart';
 import '../../constants/colors.dart';
 import '../../models/price.dart';
 import '../../models/product.dart';
+import '../../screens/product_details.dart';
 class ProductCard extends StatelessWidget {
+
+
   const ProductCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+
     final String imageUrl = "https://via.placeholder.com/150";
     final String title =
         "This product.";
@@ -75,7 +80,7 @@ class ProductCard extends StatelessWidget {
                         fontSize: 14,
                       ),
                     ),),
-                      SizedBox(height: 4),
+                      SizedBox(height: 20),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [Row(
@@ -95,6 +100,8 @@ class ProductCard extends StatelessWidget {
                               style: TextStyle(color: AppColor.paragraphGrey),))
                           ],
                       ),
+                      SizedBox(height: 20),
+
                       Row(
                         spacing: 5.0,
                         children: [Text(price, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
@@ -112,7 +119,12 @@ class ProductCard extends StatelessWidget {
                                   )
                               )
                           ),
-                          onPressed: () {},
+                          onPressed: () {Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProductDetailsPage(),
+                            ),
+                          );},
                           child: Text("Buy Now",
                             style: TextStyle(color: Colors.white),
                           ),
