@@ -100,6 +100,7 @@ class _BottomNavBarState extends State<BottomNavBar> with SingleTickerProviderSt
                   unselectedItemColor: Colors.black,
                   onTap: (index) {
                     appState.updateSelectedIndex(index);
+                    Navigator.of(context).popUntil((route) => route.isFirst);
                   },
                 ),
                 AnimatedBuilder(
