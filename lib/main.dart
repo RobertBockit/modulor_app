@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:modulor_app/providers/cart_provider.dart';
 import 'package:modulor_app/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:modulor_app/providers/app_state.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => AppState(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AppState()),
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+      ],
       child: MyApp(),
     ),
   );

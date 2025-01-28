@@ -23,7 +23,7 @@ class _MainScreenState extends State<MainScreen> {
     _pages = [
       HomePage(), // Home page
       ProfilePage(),
-      CartPage(),
+      Cart(),
       MenuPage(),
       SupportPage(),
     ];
