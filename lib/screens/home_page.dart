@@ -14,14 +14,15 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AppState>(
       builder: (context, state, child) => Scaffold(
-        body: 
-        Padding(padding: EdgeInsets.only(left:12, right:12),
+          body: Padding(
+        padding: EdgeInsets.only(left: 12, right: 12),
         child: RefreshIndicator(
           onRefresh: () async => state.pagingController.refresh(),
           child: PagedMasonryGridView<int, Product>(
             cacheExtent: 9999,
             pagingController: state.pagingController,
-            gridDelegateBuilder: (context) => SliverSimpleGridDelegateWithFixedCrossAxisCount(
+            gridDelegateBuilder: (context) =>
+                SliverSimpleGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2, // Number of columns
             ),
             builderDelegate: PagedChildBuilderDelegate<Product>(
@@ -31,7 +32,8 @@ class HomePage extends StatelessWidget {
                   // Handle product tap
                 },
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 0.0, horizontal: 0.0),
                   child: ProductCard(
                     title: product.title,
                     imageUrl: product.img,
@@ -46,8 +48,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ),
-        )
-      ),
+      )),
     );
   }
 }

@@ -63,43 +63,49 @@ class CartItemNew extends StatelessWidget {
                   ]),
                 ]),
           ),
-          SizedBox(width: 100, child: DecoratedBox(
-
-              decoration: BoxDecoration(
-                  border: Border.all(
-                      width: 0.5, color: Color.fromRGBO(0, 0, 0, 0.5))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    child: const SizedBox(
-
-                      width: 30,
-                      height: 30,
-                      child:Center(child: Text(
-
-                        "-",
-                      ),),),
-                    onTap: () => changeAmount(item.productId, item.amount - 1),
-                  ),
-                  Text(
-                      style: const TextStyle(
-                          color: Color.fromARGB(255, 255, 73, 8), fontSize: 22),
-                      '${item.amount}'),
-                  GestureDetector(
-                    child: const SizedBox(
-
-                      width: 30,
-                      height: 30,
-                      child:Center(child: Text(
-
-                        "+",
-                      ),),),
-                    onTap: () => changeAmount(item.productId, item.amount + 1),
-                  ),
-                ],
-              )))
+          SizedBox(
+              width: 100,
+              child: DecoratedBox(
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                          width: 0.5, color: Color.fromRGBO(0, 0, 0, 0.5))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        child: const SizedBox(
+                          width: 30,
+                          height: 30,
+                          child: Center(
+                            child: Text(
+                              "-",
+                            ),
+                          ),
+                        ),
+                        onTap: () =>
+                            changeAmount(item.productId, item.amount - 1),
+                      ),
+                      Text(
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 255, 73, 8),
+                              fontSize: 22),
+                          '${item.amount}'),
+                      GestureDetector(
+                        child: const SizedBox(
+                          width: 30,
+                          height: 30,
+                          child: Center(
+                            child: Text(
+                              "+",
+                            ),
+                          ),
+                        ),
+                        onTap: () =>
+                            changeAmount(item.productId, item.amount + 1),
+                      ),
+                    ],
+                  )))
         ],
       ),
     );

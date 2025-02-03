@@ -1,10 +1,8 @@
-
 import 'package:flutter/material.dart';
 
 import '../models/item.dart';
 import '../models/order.dart';
 import '../models/price.dart';
-
 
 class CartProvider with ChangeNotifier {
   final Order _order = Order([]);
@@ -29,8 +27,7 @@ class CartProvider with ChangeNotifier {
     return 0;
   }
 
-
-  void changeAmount(String id, num newAmount){
+  void changeAmount(String id, num newAmount) {
     if (newAmount > 0) {
       for (var el in _order.orderItems) {
         if (el.productId == id) {

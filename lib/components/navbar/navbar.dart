@@ -9,7 +9,8 @@ class BottomNavBar extends StatefulWidget {
   _BottomNavBarState createState() => _BottomNavBarState();
 }
 
-class _BottomNavBarState extends State<BottomNavBar> with SingleTickerProviderStateMixin {
+class _BottomNavBarState extends State<BottomNavBar>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
   int _previousIndex = 0; // Track the previous selected index
@@ -35,10 +36,12 @@ class _BottomNavBarState extends State<BottomNavBar> with SingleTickerProviderSt
 
     // We only update the animation if the index has changed
     if (_previousIndex != newIndex) {
-      double start = MediaQuery.of(context).size.width / 5 * _previousIndex + 15;
+      double start =
+          MediaQuery.of(context).size.width / 5 * _previousIndex + 15;
       double end = MediaQuery.of(context).size.width / 5 * newIndex + 15;
 
-      _animation = Tween<double>(begin: start, end: end).animate(CurvedAnimation(
+      _animation =
+          Tween<double>(begin: start, end: end).animate(CurvedAnimation(
         parent: _controller,
         curve: Curves.easeInOut,
       ));
@@ -95,7 +98,8 @@ class _BottomNavBarState extends State<BottomNavBar> with SingleTickerProviderSt
                       label: 'Profile',
                     ),
                   ],
-                  currentIndex: appState.selectedIndex, // Pass selectedIndex from appState
+                  currentIndex: appState
+                      .selectedIndex, // Pass selectedIndex from appState
                   selectedItemColor: Color.fromRGBO(228, 0, 0, 1),
                   unselectedItemColor: Colors.black,
                   onTap: (index) {

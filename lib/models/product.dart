@@ -13,13 +13,13 @@ class Product {
 
   Product(
       {required this.id,
-        required this.img,
-        required this.title,
-        required this.description,
-        required this.price,
-        required this.category,
-        required this.createdAt,
-        required this.updatedAt});
+      required this.img,
+      required this.title,
+      required this.description,
+      required this.price,
+      required this.category,
+      required this.createdAt,
+      required this.updatedAt});
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
