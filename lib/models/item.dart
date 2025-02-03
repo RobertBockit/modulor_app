@@ -1,5 +1,6 @@
 import 'price.dart';
-class Item{
+
+class Item {
   String productId = "";
   num amount = 1;
   String productIcon = "";

@@ -3,60 +3,57 @@ import 'enums/currency.dart';
 import 'price.dart';
 import 'item.dart';
 
-class Order{
+class Order {
   String id = "";
-  List<Item> orderItems=[];
+  List<Item> orderItems = [];
   Price totalPrice = Price(Currency.euro, 0);
   num totalAmount = 0;
 
-  Order(this.orderItems){
+  Order(this.orderItems) {
     id = const UuidV4().generate();
     calculateTotalPrice();
     calculateTotalAmount();
   }
 
-  void calculateTotalPrice(){
+  void calculateTotalPrice() {
     double newPrice = 0;
     for (var el in orderItems) {
-      newPrice+=el.productPrice.price*el.amount;
+      newPrice += el.productPrice.price * el.amount;
     }
     totalPrice = Price(Currency.euro, newPrice);
   }
 
-  void calculateTotalAmount(){
+  void calculateTotalAmount() {
     num newTotalAmount = 0;
-    for(var el in orderItems){
-      newTotalAmount+=el.amount;
+    for (var el in orderItems) {
+      newTotalAmount += el.amount;
     }
 
     totalAmount = newTotalAmount;
   }
 
-  void addNewProduct(Item newItem){
+  void addNewProduct(Item newItem) {
+    var indexOfNewItem =
+        orderItems.indexWhere((i) => i.productId == newItem.productId);
 
-    var indexOfNewItem = orderItems.indexWhere((i)=>i.productId==newItem.productId);
-
-    if(indexOfNewItem!=-1){
-      orderItems[indexOfNewItem].amount+=1;
-    }else {
+    if (indexOfNewItem != -1) {
+      orderItems[indexOfNewItem].amount += 1;
+    } else {
       orderItems.add(newItem);
     }
     calculateTotalPrice();
     calculateTotalAmount();
   }
 
-  void removeProduct(String id){
-    orderItems.remove(orderItems.firstWhere((el)=>el.productId==id));
+  void removeProduct(String id) {
+    orderItems.remove(orderItems.firstWhere((el) => el.productId == id));
     calculateTotalPrice();
     calculateTotalAmount();
   }
 
-  void clearOrder(){
+  void clearOrder() {
     orderItems.clear();
     calculateTotalPrice();
     calculateTotalAmount();
   }
-
-
-
 }

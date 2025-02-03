@@ -5,8 +5,6 @@ import '../components/navbar/navbar.dart';
 import '../providers/app_state.dart';
 
 class ProductDetailsPage extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
@@ -32,5 +30,4 @@ class ProductDetailsPage extends StatelessWidget {
       bottomNavigationBar: BottomNavBar(),
     );
   }
-
 }

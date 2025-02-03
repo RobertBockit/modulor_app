@@ -1,7 +1,6 @@
 import 'enums/currency.dart';
 
 class Price {
-
   Price(this.currency, this.price);
   Currency currency = Currency.euro;
   double price = 0;
@@ -14,4 +13,3 @@ class Price {
     return price;
   }
 }
-

@@ -11,18 +11,19 @@ class OrderSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: const BoxDecoration(
-            boxShadow: [BoxShadow(
-              blurRadius: 20,
-              blurStyle: BlurStyle.normal,
-              color: Color.fromRGBO(12, 24, 35, 0.12),
-              offset: Offset(0, 4),
-              spreadRadius: 0,
-            )]
-        ),
+        decoration: const BoxDecoration(boxShadow: [
+          BoxShadow(
+            blurRadius: 20,
+            blurStyle: BlurStyle.normal,
+            color: Color.fromRGBO(12, 24, 35, 0.12),
+            offset: Offset(0, 4),
+            spreadRadius: 0,
+          )
+        ]),
         child: Card(
             color: const Color.fromARGB(255, 255, 255, 255),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
@@ -47,7 +48,8 @@ class OrderSummary extends StatelessWidget {
                             children: [
                               Text(
                                   style: const TextStyle(
-                                      fontWeight: FontWeight.w600, fontSize: 16),
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16),
                                   "${totalPrice.price.toStringAsFixed(2)} "),
                               Text(
                                   style: const TextStyle(
@@ -62,9 +64,9 @@ class OrderSummary extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         OutlinedButton(
-                            onPressed: () {Navigator.pop(
-                                context
-                            );},
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
                             child: const Text(
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 255, 73, 8),
@@ -72,7 +74,10 @@ class OrderSummary extends StatelessWidget {
                                 "Back to store")),
                         ElevatedButton(
                             onPressed: () {},
-                            style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 255, 73, 8),),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  const Color.fromARGB(255, 255, 73, 8),
+                            ),
                             child: const Text(
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 255, 255, 255),

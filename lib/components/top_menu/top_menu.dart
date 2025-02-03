@@ -46,8 +46,10 @@ class TopMenu extends StatelessWidget {
                       color: AppColor.paragraphBlack,
                       fontSize: 14,
                     ),
-                    prefixIcon: const Icon(Icons.search, color: AppColor.paragraphBlack),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                    prefixIcon: const Icon(Icons.search,
+                        color: AppColor.paragraphBlack),
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 12, horizontal: 16),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide: BorderSide.none,
@@ -69,7 +71,8 @@ class TopMenu extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                     child: Row(
                       children: [
-                        const Icon(Icons.location_pin, color: AppColor.paragraphBlack, size: 16),
+                        const Icon(Icons.location_pin,
+                            color: AppColor.paragraphBlack, size: 16),
                         const SizedBox(width: 3),
                         const Text(
                           'Locker C',
@@ -80,7 +83,8 @@ class TopMenu extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 3),
-                        const Icon(Icons.keyboard_arrow_down_rounded, color: AppColor.paragraphBlack, size: 16),
+                        const Icon(Icons.keyboard_arrow_down_rounded,
+                            color: AppColor.paragraphBlack, size: 16),
                       ],
                     ),
                   ),

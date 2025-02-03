@@ -8,15 +8,17 @@ class FeaturedCategories extends StatelessWidget {
     return SingleChildScrollView(
       child: Container(
         child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal, // Make the Row scrollable horizontally
+          scrollDirection:
+              Axis.horizontal, // Make the Row scrollable horizontally
           child: Row(
             children: List.generate(
               5,
-                  (index) => SizedBox(
+              (index) => SizedBox(
                 width: 130,
                 height: 180,
                 child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 2.5, vertical: 5),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 2.5, vertical: 5),
                   color: Colors.white,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
