@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:image/image.dart' as img;
 import '../../constants/colors.dart';
 import '../../models/price.dart';
+import '../../screens/product_details.dart';
 
 class ProductCard extends StatefulWidget {
   final String imageUrl;
@@ -79,144 +80,157 @@ class _ProductCardState extends State<ProductCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.white,
-      borderOnForeground: false,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      elevation: 0,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Product Image Container
-          ClipRRect(
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(11),
-              bottom: Radius.circular(11),
-            ),
-            child: Stack(
-              children: [
-                Container(
-                  width: double.infinity,
-                  height: _containerHeight,
-                  color: Colors.black.withOpacity(0.04),
-                  child: Image.network(
-                    widget.imageUrl,
-                    // Use BoxFit.contain to ensure the whole image is shown,
-                    // which might leave a gap on the sides if the image is tall.
-                    fit: BoxFit.contain,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ProductDetailsPage(
+                    title: 'Product Name',
+                    imageUrl: 'https://bellard.org/bpg/2.png',
+                    price: 12.00,
+                  )),
+        );
+      }, // Navigate to productPage() when tapped anywhere
+      child: Card(
+        color: Colors.white,
+        borderOnForeground: false,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        elevation: 0,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Product Image Container
+            ClipRRect(
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(11),
+                bottom: Radius.circular(11),
+              ),
+              child: Stack(
+                children: [
+                  Container(
                     width: double.infinity,
                     height: _containerHeight,
-                  ),
-                ),
-                // A subtle overlay (if desired)
-                Positioned.fill(
-                  child: Container(
-                    color: Colors.black.withOpacity(0.04),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // Product Title
-          Padding(
-            padding: const EdgeInsets.only(left: 0.0, right: 0.0, top: 1.0),
-            child: Text(
-              widget.title,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                color: Colors.black,
-              ),
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          const SizedBox(height: 3),
-
-          // Additional Product Info Container
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 0),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-              decoration: BoxDecoration(
-                color: AppColor.backgroundGrey,
-              ),
-              child: const Text(
-                "21 x 29,7 cm",
-                style: TextStyle(
-                    fontSize: 13,
-                    color: AppColor.paragraphBlack,
-                    letterSpacing: -0.52),
-              ),
-            ),
-          ),
-          const SizedBox(height: 4),
-
-          // Pricing Section
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 0),
-            child: Baseline(
-              baseline: 20,
-              baselineType: TextBaseline.alphabetic,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "${widget.price.toStringAsFixed(2)}€",
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black,
-                      letterSpacing: -0.83,
+                    color: Color.fromRGBO(0, 0, 0, 0.02),
+                    child: Image.network(
+                      widget.imageUrl,
+                      fit: BoxFit.contain,
+                      width: double.infinity,
+                      height: _containerHeight,
                     ),
                   ),
-                  const SizedBox(width: 4),
-                  Transform.translate(
-                    offset: const Offset(0, 1.8),
-                    child: Text(
-                      "${widget.price.toStringAsFixed(2)}€",
-                      style: const TextStyle(
-                        fontSize: 13,
-                        color: AppColor.paragraphBlack,
-                        letterSpacing: -0.52,
-                        decoration: TextDecoration.lineThrough,
-                      ),
+                  Positioned.fill(
+                    child: Container(
+                      color: Color.fromRGBO(0, 0, 0, 0.02),
                     ),
                   ),
                 ],
               ),
             ),
-          ),
-          const SizedBox(height: 5),
 
-          // Add to Basket Button
-          SizedBox(
-            width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColor.modulorRed,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  padding: const EdgeInsets.symmetric(vertical: 0),
+            // Product Title
+            Padding(
+              padding: const EdgeInsets.only(left: 0.0, right: 0.0, top: 1.0),
+              child: Text(
+                widget.title,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black,
                 ),
-                onPressed: widget.onAddToCart,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            const SizedBox(height: 3),
+
+            // Additional Product Info Container
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 0),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                decoration: BoxDecoration(
+                  color: AppColor.backgroundGrey,
+                ),
                 child: const Text(
-                  "Add to basket",
+                  "21 x 29,7 cm",
                   style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                      letterSpacing: -0.62),
+                      fontSize: 13,
+                      color: AppColor.paragraphBlack,
+                      letterSpacing: -0.52),
                 ),
               ),
             ),
-          ),
-        ],
+            const SizedBox(height: 4),
+
+            // Pricing Section
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 0),
+              child: Baseline(
+                baseline: 20,
+                baselineType: TextBaseline.alphabetic,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      "${widget.price.toStringAsFixed(2)}€",
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black,
+                        letterSpacing: -0.83,
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    Transform.translate(
+                      offset: const Offset(0, 1.8),
+                      child: Text(
+                        "${widget.price.toStringAsFixed(2)}€",
+                        style: const TextStyle(
+                          fontSize: 13,
+                          color: AppColor.paragraphBlack,
+                          letterSpacing: -0.52,
+                          decoration: TextDecoration.lineThrough,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 5),
+
+            // Add to Basket Button
+            SizedBox(
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColor.modulorRed,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 0),
+                  ),
+                  onPressed: () {
+                    widget
+                        .onAddToCart(); // Call addToCart when button is pressed
+                  },
+                  child: const Text(
+                    "Add to basket",
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        letterSpacing: -0.62),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
