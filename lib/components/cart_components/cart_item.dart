@@ -19,8 +19,7 @@ class CartItemNew extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(
-            "lib/assets/loading.gif",
+          Image.network(            "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",
             height: 64,
             width: 64,
           ),

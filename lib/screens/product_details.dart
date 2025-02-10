@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../components/navbar/navbar.dart';
 import '../components/product_card/carrousel_image_product.dart';
 import '../constants/colors.dart';
+import '../models/item.dart';
+import '../providers/cart_provider.dart';
 
 class ProductDetailsPage extends StatelessWidget {
   final String title;
   final String imageUrl;
   final double price;
+  final VoidCallback onAddToCart;
 
   const ProductDetailsPage({
     super.key,
     required this.title,
     required this.imageUrl,
     required this.price,
+    required this.onAddToCart,
   });
 
   @override
@@ -158,7 +163,7 @@ class ProductDetailsPage extends StatelessWidget {
             bottom: 20,
             child: ElevatedButton(
               onPressed: () {
-                // Handle button press
+                onAddToCart();
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColor.modulorRed,

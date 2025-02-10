@@ -3,9 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import '../components/product_card/product_card.dart';
+import '../models/item.dart';
 import '../models/price.dart';
 import '../models/product.dart';
 import '../providers/app_state.dart';
+import '../providers/cart_provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -35,11 +37,22 @@ class HomePage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       vertical: 0.0, horizontal: 0.0),
                   child: ProductCard(
+                    productId: product.id,
                     title: product.title,
                     imageUrl: product.img,
                     price: product.price,
                     onAddToCart: () {
-                      // Handle add to cart
+                      Provider.of<CartProvider>(context, listen: false)
+                          .addItem(
+                        Item(
+                          product.id,
+                          product.img,
+                          product.title,
+                          product.price,
+                          true,
+                        ),
+                      );
+
                     },
                     description: 'adawdadawd',
                   ),
