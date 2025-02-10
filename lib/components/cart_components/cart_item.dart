@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:modulor_app/components/product_card/checkbox.dart';
+import '../../constants/colors.dart';
 import '../../models/item.dart';
 
 class CartItemNew extends StatelessWidget {
@@ -10,101 +12,119 @@ class CartItemNew extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        minHeight: 108,
-        maxWidth: MediaQuery.sizeOf(context).width,
-      ),
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.network(            "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",
-            height: 64,
-            width: 64,
-          ),
-          ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 157),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    item.productName,
-                    textAlign: TextAlign.start,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const Text(
-                    "Alpha: 1 | Betta: 3 | Gamma: 3",
-                    textAlign: TextAlign.start,
-                    style: const TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                    Text(
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 14),
-                        "${item.productPrice.price} "),
-                    Text(
-                        style: const TextStyle(
-                            color: Color.fromARGB(255, 255, 73, 8),
-                            fontSize: 14),
-                        item.productPrice.currency.name),
-                    const Text(
-                        style: TextStyle(
-                            fontWeight: FontWeight.w200, fontSize: 14),
-                        "per unit")
-                  ]),
-                ]),
-          ),
-          SizedBox(
-              width: 100,
-              child: DecoratedBox(
+          // Checkbox
+          ToggleCheckBox(),
+
+          const SizedBox(width: 20),
+
+          // Product Image
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(11),
+                child: Image.network(
+                  item.productIcon,
+                  height: 64,
+                  width: 64,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Positioned.fill(
+                child: Container(
                   decoration: BoxDecoration(
-                      border: Border.all(
-                          width: 0.5, color: Color.fromRGBO(0, 0, 0, 0.5))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        child: const SizedBox(
-                          width: 30,
-                          height: 30,
-                          child: Center(
-                            child: Text(
-                              "-",
-                            ),
-                          ),
-                        ),
-                        onTap: () =>
-                            changeAmount(item.productId, item.amount - 1),
+                    color: Colors.black.withOpacity(0.04), // 4% black overlay
+                    borderRadius: BorderRadius.circular(11), // Match the image's border radius
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(width: 20),
+          Expanded(
+            child:Padding(padding: EdgeInsets.only(top: 0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+              Transform.translate(
+              offset: const Offset(0, 5),
+              child:Text(
+                  item.productName,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                )),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "${item.productPrice.price.toStringAsFixed(2)} ${item.productPrice.currency.name}",
+                      style: const TextStyle(
+                        fontSize: 20,
+                        height: -0,
+                        letterSpacing: -0.5,
+                        fontWeight: FontWeight.w400,
                       ),
-                      Text(
-                          style: const TextStyle(
-                              color: Color.fromARGB(255, 255, 73, 8),
-                              fontSize: 22),
-                          '${item.amount}'),
-                      GestureDetector(
-                        child: const SizedBox(
-                          width: 30,
-                          height: 30,
-                          child: Center(
-                            child: Text(
-                              "+",
+                    ),
+
+                    // Quantity Selector
+                    Row(
+                      children: [
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Container(
+                              width: 24, // Adjust size as needed
+                              height: 24,
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(241, 243, 244, 1), // Use your desired grey color
+                                shape: BoxShape.circle,
+                              ),
                             ),
-                          ),
+                            IconButton(
+                              icon: const Icon(Icons.remove, size: 16, color: AppColor.paragraphBlack),
+                              onPressed: () => changeAmount(item.productId, item.amount - 1),
+                            ),
+                          ],
                         ),
-                        onTap: () =>
-                            changeAmount(item.productId, item.amount + 1),
-                      ),
-                    ],
-                  )))
+                        Text(
+                          '${item.amount}',
+                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: -0.5,),
+                        ),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Container(
+                              width: 24, // Adjust size as needed
+                              height: 24,
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(241, 243, 244, 1), // Use your desired grey color
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.add, size: 16, color: AppColor.paragraphBlack),
+                              onPressed: () => changeAmount(item.productId, item.amount + 1),
+                            ),
+                          ],
+                        )
+
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),)
+          ),
         ],
       ),
     );
