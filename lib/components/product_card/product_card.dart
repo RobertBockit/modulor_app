@@ -2,11 +2,15 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image/image.dart' as img;
+import 'package:provider/provider.dart';
 import '../../constants/colors.dart';
+import '../../models/item.dart';
 import '../../models/price.dart';
+import '../../providers/cart_provider.dart';
 import '../../screens/product_details.dart';
 
 class ProductCard extends StatefulWidget {
+  final String productId;
   final String imageUrl;
   final String title;
   final Price price;
@@ -15,6 +19,7 @@ class ProductCard extends StatefulWidget {
 
   const ProductCard({
     super.key,
+    required this.productId,
     required this.imageUrl,
     required this.title,
     required this.price,
@@ -89,6 +94,18 @@ class _ProductCardState extends State<ProductCard> {
                     title: 'Product Name',
                     imageUrl: 'https://bellard.org/bpg/2.png',
                     price: 12.00,
+                    onAddToCart: () {
+                      Provider.of<CartProvider>(context, listen: false)
+                          .addItem(
+                        Item(
+                          widget.productId,
+                          widget.imageUrl,
+                          widget.title,
+                          widget.price,
+                          true,
+                        ),
+                      );
+                    },
                   )),
         );
       }, // Navigate to productPage() when tapped anywhere
