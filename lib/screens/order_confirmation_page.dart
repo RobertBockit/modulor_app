@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:modulor_app/components/order_confirmation_components/order_confirmation_item_list.dart';
 import 'package:modulor_app/components/order_confirmation_components/pay_button_block.dart';
 import 'package:modulor_app/components/order_confirmation_components/payment_method.dart';
+import 'package:modulor_app/components/order_confirmation_components/top_bar.dart';
 import 'package:modulor_app/components/pickup_location/pickup_location.dart';
 import 'package:modulor_app/providers/cart_provider.dart';
 import 'package:provider/provider.dart';
@@ -21,11 +22,17 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
     return Consumer<CartProvider>(
         builder: (BuildContext context, CartProvider order, Widget? child) {
       return Scaffold(
+
           backgroundColor: AppColor.backgroundGrey,
           body: SafeArea(
               left: false,
               right: false,
               child: Column(children: [
+                Align(
+                    alignment: Alignment.topCenter,
+                    child: // you textField,
+                    TopBar()),
+                const SizedBox(height: 12),
                 Expanded(child: SingleChildScrollView(child: Column(children: [
                 PickUpLocation(),
                 const SizedBox(height: 12),

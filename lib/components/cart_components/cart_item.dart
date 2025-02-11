@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modulor_app/components/product_card/checkbox.dart';
+import 'package:modulor_app/models/enums/currency.dart';
 import '../../constants/colors.dart';
 import '../../models/item.dart';
 
@@ -69,7 +70,7 @@ class CartItemNew extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "${item.productPrice.price.toStringAsFixed(2)} ${item.productPrice.currency.name}",
+                      "${item.productPrice.price.toStringAsFixed(2)} ${item.productPrice.currency.value}",
                       style: const TextStyle(
                         fontSize: 20,
                         height: -0,
