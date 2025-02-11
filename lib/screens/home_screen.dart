@@ -22,10 +22,9 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
     _pages = [
       HomePage(), // Home page
-      ProfilePage(),
       Cart(),
       MenuPage(),
-      SupportPage(),
+      ProfilePage(),
     ];
   }
 
