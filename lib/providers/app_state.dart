@@ -20,7 +20,7 @@ class AppState with ChangeNotifier {
 
   Future<List<Product>> get products => _products;
 
-  static const _pageSize = 20;
+  static const _pageSize = 10;
 
   String? _searchQuery;
 

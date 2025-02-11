@@ -67,6 +67,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/fonts/
+    - assets/visa.png
     - assets/icons/
   fonts:
     - family: AtkinsonHyperlegible
