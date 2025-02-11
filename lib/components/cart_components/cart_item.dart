@@ -38,7 +38,8 @@ class CartItemNew extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.04), // 4% black overlay
-                    borderRadius: BorderRadius.circular(11), // Match the image's border radius
+                    borderRadius: BorderRadius.circular(
+                        11), // Match the image's border radius
                   ),
                 ),
               ),
@@ -47,22 +48,23 @@ class CartItemNew extends StatelessWidget {
 
           const SizedBox(width: 20),
           Expanded(
-            child:Padding(padding: EdgeInsets.only(top: 0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: Padding(
+            padding: EdgeInsets.only(top: 0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-              Transform.translate(
-              offset: const Offset(0, 5),
-              child:Text(
-                  item.productName,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                )),
+                Transform.translate(
+                    offset: const Offset(0, 5),
+                    child: Text(
+                      item.productName,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    )),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -86,19 +88,26 @@ class CartItemNew extends StatelessWidget {
                               width: 24, // Adjust size as needed
                               height: 24,
                               decoration: BoxDecoration(
-                                color: Color.fromRGBO(241, 243, 244, 1), // Use your desired grey color
+                                color: Color.fromRGBO(241, 243, 244,
+                                    1), // Use your desired grey color
                                 shape: BoxShape.circle,
                               ),
                             ),
                             IconButton(
-                              icon: const Icon(Icons.remove, size: 16, color: AppColor.paragraphBlack),
-                              onPressed: () => changeAmount(item.productId, item.amount - 1),
+                              icon: const Icon(Icons.remove,
+                                  size: 16, color: AppColor.paragraphBlack),
+                              onPressed: () =>
+                                  changeAmount(item.productId, item.amount - 1),
                             ),
                           ],
                         ),
                         Text(
                           '${item.amount}',
-                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: -0.5,),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            letterSpacing: -0.5,
+                          ),
                         ),
                         Stack(
                           alignment: Alignment.center,
@@ -107,24 +116,26 @@ class CartItemNew extends StatelessWidget {
                               width: 24, // Adjust size as needed
                               height: 24,
                               decoration: BoxDecoration(
-                                color: Color.fromRGBO(241, 243, 244, 1), // Use your desired grey color
+                                color: Color.fromRGBO(241, 243, 244,
+                                    1), // Use your desired grey color
                                 shape: BoxShape.circle,
                               ),
                             ),
                             IconButton(
-                              icon: const Icon(Icons.add, size: 16, color: AppColor.paragraphBlack),
-                              onPressed: () => changeAmount(item.productId, item.amount + 1),
+                              icon: const Icon(Icons.add,
+                                  size: 16, color: AppColor.paragraphBlack),
+                              onPressed: () =>
+                                  changeAmount(item.productId, item.amount + 1),
                             ),
                           ],
                         )
-
                       ],
                     ),
                   ],
                 ),
               ],
-            ),)
-          ),
+            ),
+          )),
         ],
       ),
     );
