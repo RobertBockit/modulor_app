@@ -95,8 +95,7 @@ class _ProductCardState extends State<ProductCard> {
                     imageUrl: 'https://bellard.org/bpg/2.png',
                     price: 12.00,
                     onAddToCart: () {
-                      Provider.of<CartProvider>(context, listen: false)
-                          .addItem(
+                      Provider.of<CartProvider>(context, listen: false).addItem(
                         Item(
                           widget.productId,
                           widget.imageUrl,

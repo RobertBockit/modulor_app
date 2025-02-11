@@ -7,5 +7,6 @@ class Item {
   String productName = "";
   bool isSelected = true;
   late Price productPrice;
-  Item(this.productId, this.productIcon, this.productName, this.productPrice, this.isSelected);
+  Item(this.productId, this.productIcon, this.productName, this.productPrice,
+      this.isSelected);
 }

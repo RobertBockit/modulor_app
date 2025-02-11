@@ -42,8 +42,7 @@ class HomePage extends StatelessWidget {
                     imageUrl: product.img,
                     price: product.price,
                     onAddToCart: () {
-                      Provider.of<CartProvider>(context, listen: false)
-                          .addItem(
+                      Provider.of<CartProvider>(context, listen: false).addItem(
                         Item(
                           product.id,
                           product.img,
@@ -52,7 +51,6 @@ class HomePage extends StatelessWidget {
                           true,
                         ),
                       );
-
                     },
                     description: 'adawdadawd',
                   ),

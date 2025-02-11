@@ -7,19 +7,16 @@ class MenuPage extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(top: 170),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: 0,
         children: [
-          Text(
-            "Shop by Category",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
-              letterSpacing: -0.2,
-            ),
-          ),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.all(10.0),
-              child: CategoryGrid(),
+              padding: EdgeInsets.all(0.0),
+              child: Container(
+                child: CategoryGrid(),
+              ),
             ),
           ),
         ],
