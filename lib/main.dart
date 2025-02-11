@@ -19,6 +19,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       theme: ThemeData(
         fontFamily: 'AtkinsonHyperlegible',
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         hoverColor: Colors.transparent,
       ),
       debugShowCheckedModeBanner: false,
+
       home: MainScreen(),
     );
   }
