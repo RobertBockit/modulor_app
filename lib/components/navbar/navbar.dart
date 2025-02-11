@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:modulor_app/providers/app_state.dart'; // Import AppState class
+import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../constants/colors.dart';
 
 class BottomNavBar extends StatefulWidget {
   BottomNavBar({Key? key}) : super(key: key);
@@ -65,36 +68,53 @@ class _BottomNavBarState extends State<BottomNavBar>
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              height: 1,
-              color: Colors.grey[300],
+              height: 5,
             ),
             Stack(
               children: [
                 BottomNavigationBar(
                   backgroundColor: Colors.white,
                   type: BottomNavigationBarType.fixed,
-                  showSelectedLabels: false,
-                  showUnselectedLabels: false,
+                  showSelectedLabels: true,
+                  showUnselectedLabels: true,
+                  selectedIconTheme: IconThemeData(color: AppColor.modulorRed),
+                  selectedFontSize: 13,
                   iconSize: 32,
-                  items: const <BottomNavigationBarItem>[
+                  items: <BottomNavigationBarItem>[
                     BottomNavigationBarItem(
-                      icon: Icon(Icons.home_outlined),
+                      icon: SvgPicture.asset(
+                        'assets/icons/home.svg',
+                        width: 24,
+                        height: 24,
+                        color: appState.selectedIndex == 0 ? AppColor.modulorRed : Colors.black,
+                      ),
                       label: 'Home',
                     ),
                     BottomNavigationBarItem(
-                      icon: Icon(Icons.person_outline),
-                      label: 'Search',
+                      icon: SvgPicture.asset(
+                        'assets/icons/shopping-cart.svg',
+                        width: 24,
+                        height: 24,
+                        color: appState.selectedIndex == 1 ? AppColor.modulorRed : Colors.black,
+                      ),
+                      label: 'Cart',
                     ),
                     BottomNavigationBarItem(
-                      icon: Icon(Icons.shopping_cart_outlined),
-                      label: 'Notifications',
+                      icon: SvgPicture.asset(
+                        'assets/icons/menu.svg',
+                        width: 24,
+                        height: 24,
+                        color: appState.selectedIndex == 2 ? AppColor.modulorRed : Colors.black,
+                      ),
+                      label: 'Categories',
                     ),
                     BottomNavigationBarItem(
-                      icon: Icon(Icons.menu),
-                      label: 'Favorites',
-                    ),
-                    BottomNavigationBarItem(
-                      icon: Icon(Icons.question_mark_rounded),
+                      icon: SvgPicture.asset(
+                        'assets/icons/user.svg',
+                        width: 24,
+                        height: 24,
+                        color: appState.selectedIndex == 3 ? AppColor.modulorRed : Colors.black,
+                      ),
                       label: 'Profile',
                     ),
                   ],
@@ -105,26 +125,6 @@ class _BottomNavBarState extends State<BottomNavBar>
                   onTap: (index) {
                     appState.updateSelectedIndex(index);
                     Navigator.of(context).popUntil((route) => route.isFirst);
-                  },
-                ),
-                AnimatedBuilder(
-                  animation: _animation,
-                  builder: (context, child) {
-                    return Positioned(
-                      left: _animation.value,
-                      top: 0,
-                      child: Container(
-                        width: 60,
-                        height: 5,
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(228, 0, 0, 1),
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(3.0),
-                            bottomRight: Radius.circular(3.0),
-                          ),
-                        ),
-                      ),
-                    );
                   },
                 ),
               ],

@@ -1,4 +1,3 @@
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -50,7 +49,8 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                 ),
                 // Image with Padding
                 Padding(
-                  padding: const EdgeInsets.all(11.0), // 10px padding from all sides
+                  padding:
+                      const EdgeInsets.all(11.0), // 10px padding from all sides
                   child: Center(
                     child: Image.network(
                       item,
@@ -73,7 +73,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
 
         // Indicator Dots
         Container(
-          padding: EdgeInsets.only(top:20, bottom: 20),
+          padding: EdgeInsets.only(top: 20, bottom: 20),
           color: AppColor.backgroundGrey,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -86,8 +86,9 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                   margin: const EdgeInsets.symmetric(horizontal: 4.0),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color:
-                    _current == entry.key ? Color.fromRGBO(131, 148, 132, 1) :  Color.fromRGBO(217, 217, 217, 1),
+                    color: _current == entry.key
+                        ? Color.fromRGBO(131, 148, 132, 1)
+                        : Color.fromRGBO(217, 217, 217, 1),
                   ),
                 ),
               );

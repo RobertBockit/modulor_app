@@ -30,7 +30,7 @@ environment:
 dependencies:
   provider: ^6.0.1
   uuid: ^4.4.2
-
+  flutter_svg: ^2.0.9
   flutter:
     sdk: flutter
 
@@ -68,6 +68,7 @@ flutter:
   assets:
     - assets/fonts/
     - assets/visa.png
+    - assets/icons/
   fonts:
     - family: AtkinsonHyperlegible
       fonts:
