@@ -8,7 +8,7 @@ class PickUpLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        // color: Colors.white,
+      // color: Colors.white,
         width: double.infinity, // Растягиваем по ширине
         decoration: BoxDecoration(
           color: Colors.white,
