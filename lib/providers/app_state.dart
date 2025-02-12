@@ -20,7 +20,7 @@ class AppState with ChangeNotifier {
 
   Future<List<Product>> get products => _products;
 
-  static const _pageSize = 10;
+  static const int _pageSize = 10;
 
   String? _searchQuery;
 
@@ -45,7 +45,9 @@ class AppState with ChangeNotifier {
         pagingController.appendLastPage(newItems);
       } else {
         final nextPageKey = pageKey + newItems.length;
-        pagingController.appendPage(newItems, nextPageKey);
+        print("next page");
+        print(nextPageKey);
+        pagingController.appendPage(newItems, nextPageKey as int?);
       }
     } catch (error) {
       pagingController.error = error;
