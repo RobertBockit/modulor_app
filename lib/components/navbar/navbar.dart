@@ -4,6 +4,7 @@ import 'package:modulor_app/providers/app_state.dart'; // Import AppState class
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../constants/colors.dart';
+import '../../providers/cart_provider.dart';
 
 class BottomNavBar extends StatefulWidget {
   BottomNavBar({Key? key}) : super(key: key);
@@ -93,13 +94,43 @@ class _BottomNavBarState extends State<BottomNavBar>
                       label: 'Home',
                     ),
                     BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                        'assets/icons/shopping-cart.svg',
-                        width: 24,
-                        height: 24,
-                        color: appState.selectedIndex == 1
-                            ? AppColor.modulorRed
-                            : Colors.black,
+                      icon: Consumer<CartProvider>(
+                        builder: (context, cartProvider, child) {
+                          return Stack(
+                            clipBehavior: Clip.none,
+                            children: [
+                              // The base shopping cart icon
+                              SvgPicture.asset(
+                                'assets/icons/shopping-cart.svg',
+                                width: 24,
+                                height: 24,
+                                color: appState.selectedIndex == 1
+                                    ? AppColor.modulorRed
+                                    : Colors.black,
+                              ),
+                              // Only show the badge if there are items in the cart
+                              if (cartProvider.totalAmount > 0)
+                                Positioned(
+                                  top: -5,
+                                  right: 4,
+                                  child: Container(
+                                  width: 16,
+                                    child: Text(
+                                      cartProvider.totalAmount.toString(),
+                                      style: TextStyle(
+                                        color: appState.selectedIndex == 1
+                                            ? AppColor.modulorRed
+                                            : Colors.black,
+                                        fontSize: cartProvider.totalAmount > 9 ? 12 : 14,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          );
+                        },
                       ),
                       label: 'Cart',
                     ),
@@ -126,8 +157,8 @@ class _BottomNavBarState extends State<BottomNavBar>
                       label: 'Profile',
                     ),
                   ],
-                  currentIndex: appState
-                      .selectedIndex, // Pass selectedIndex from appState
+                  currentIndex: appState.selectedIndex,
+                  // Pass selectedIndex from appState
                   selectedItemColor: Color.fromRGBO(228, 0, 0, 1),
                   unselectedItemColor: Colors.black,
                   onTap: (index) {
