@@ -74,11 +74,14 @@ class OrderSummary extends StatelessWidget {
                                     fontSize: 16),
                                 "Back to store")),
                         ElevatedButton(
-                            onPressed: () =>{Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => OrderConfirmationPage(),
-                        ))},
+                            onPressed: () => {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            OrderConfirmationPage(),
+                                      ))
+                                },
                             style: ElevatedButton.styleFrom(
                               backgroundColor:
                                   const Color.fromARGB(255, 255, 73, 8),

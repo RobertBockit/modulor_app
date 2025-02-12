@@ -22,35 +22,46 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
     return Consumer<CartProvider>(
         builder: (BuildContext context, CartProvider order, Widget? child) {
       return Scaffold(
-
-          backgroundColor: AppColor.backgroundGrey,
-          body: SafeArea(
+          body:  SafeArea(
               left: false,
               right: false,
-              child: Column(children: [
-                Align(
+              child:
+              Container(
+                color: AppColor.backgroundGrey, // Set the background color to grey
+                child:
+                Column(
+                children: [
+                  Align(
                     alignment: Alignment.topCenter,
-                    child: // you textField,
-                    TopBar()),
-                const SizedBox(height: 12),
-                Expanded(child: SingleChildScrollView(child: Column(children: [
-                PickUpLocation(),
-                const SizedBox(height: 12),
-                PaymentMethod(),
-                const SizedBox(height: 12),
-                OrderConfirmationItemList(
-                    items: order.items, changeAmount: order.changeAmount),
-                ]))),
-                Align(
+                    child: TopBar(),
+                  ),
+                  const SizedBox(height: 12),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          PickUpLocation(),
+                          const SizedBox(height: 12),
+                          PaymentMethod(),
+                          const SizedBox(height: 12),
+                          OrderConfirmationItemList(
+                            items: order.items,
+                            changeAmount: order.changeAmount,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Align(
                     alignment: Alignment.bottomCenter,
-                    child: // you textField,
-                        PayButtonBlock(totalPrice: order.totalPrice))
-              ]
-                  // return Padding(padding: const EdgeInsets.only(top: 26, bottom: 26, right: 10, left: 10),
-                  //
-                  // child: Text(""),);
+                    child: PayButtonBlock(totalPrice: order.totalPrice),
+                  ),
+                ],
+              ),
+            ),
+          )
 
-                  )));
+      );
     });
   }
 }
