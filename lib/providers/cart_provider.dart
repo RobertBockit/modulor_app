@@ -11,6 +11,10 @@ class CartProvider with ChangeNotifier {
 
   num get totalAmount => _order.totalAmount;
 
+  String get orderIdShort => _order.id.substring(0, 10);
+
+  String get orderId => _order.id;
+
   Price get totalPrice => _order.totalPrice;
 
   void addItem(Item newItem) {

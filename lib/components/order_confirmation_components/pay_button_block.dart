@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modulor_app/constants/colors.dart';
 import 'package:modulor_app/models/enums/currency.dart';
+import 'package:modulor_app/screens/retrieval_page.dart';
 
 import '../../models/price.dart';
 
@@ -40,7 +41,14 @@ class PayButtonBlock extends StatelessWidget {
                           'VAT (7%) included: ${(totalPrice.price * 0.07).toStringAsFixed(2)}${totalPrice.currency.value}')
                     ]),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              RetrievalPage(),
+                        ))
+                  },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: AppColor.modulorRed,
                       fixedSize: Size(190, 42),

@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class TopBar extends StatelessWidget {
-  const TopBar({super.key});
+  final String value;
+
+  const TopBar({super.key, required this.value});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.white,
-      title: Text("Order confirmation"),
+      title: Text(value),
       leading: Icon(Icons.arrow_back),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(

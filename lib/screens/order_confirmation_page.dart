@@ -31,7 +31,7 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
             children: [
               Align(
                 alignment: Alignment.topCenter,
-                child: TopBar(),
+                child: TopBar(value: "Order Confirmation"),
               ),
               const SizedBox(height: 12),
               Expanded(
