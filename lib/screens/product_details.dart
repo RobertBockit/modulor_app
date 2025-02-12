@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../components/navbar/navbar.dart';
 import '../components/product_card/carrousel_image_product.dart';
+import '../components/product_card/similar_products_row.dart';
 import '../constants/colors.dart';
-import '../models/item.dart';
-import '../providers/cart_provider.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   final String title;
@@ -192,16 +190,17 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                               fontSize: 14, fontWeight: FontWeight.w400),
                         ),
                         const SizedBox(height: 10),
+                        const Divider(
+                          thickness: 1, // Line width
+                          color: AppColor.backgroundGrey, // Line color
+                        ),
+                        const SizedBox(height: 10),
                         Text(
                           'Similar Items',
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w700),
                         ),
-                        Text(
-                          'Тут типа должны быть карточки других товаров, но пока отложим на потом, слишком долго. А ещё я охуел как мы все втроём не замтелили что кнопки выборки кол-ва товара нет xd',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w400),
-                        ),
+                        similarProductsSection(),
                         const SizedBox(
                             height:
                                 80), // Extra space so content doesn't get hidden under button

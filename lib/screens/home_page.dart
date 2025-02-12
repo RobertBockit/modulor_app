@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
         child: RefreshIndicator(
           onRefresh: () async => state.pagingController.refresh(),
           child: PagedMasonryGridView<int, Product>(
-            cacheExtent: 9999,
+            cacheExtent: 50,
             pagingController: state.pagingController,
             gridDelegateBuilder: (context) =>
                 SliverSimpleGridDelegateWithFixedCrossAxisCount(

@@ -1,8 +1,7 @@
-import 'dart:typed_data';
+import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:image/image.dart' as img;
 import 'package:provider/provider.dart';
+
 import '../../constants/colors.dart';
 import '../../models/item.dart';
 import '../../models/price.dart';
@@ -18,99 +17,114 @@ class ProductCard extends StatefulWidget {
   final String description;
 
   const ProductCard({
-    super.key,
+    Key? key,
     required this.productId,
     required this.imageUrl,
     required this.title,
     required this.price,
     required this.onAddToCart,
     required this.description,
-  });
+  }) : super(key: key);
 
   @override
   _ProductCardState createState() => _ProductCardState();
 }
 
 class _ProductCardState extends State<ProductCard> {
-  // Start with a default height of 180 pixels.
-  double _containerHeight = 180.0;
+  double _containerHeight = 180;
+  late final NetworkImage _networkImage;
+  ImageStream? _imageStream;
+  late final ImageStreamListener _imageStreamListener;
 
   @override
   void initState() {
     super.initState();
-    _fetchImageDimensions();
+    _networkImage = NetworkImage(widget.imageUrl);
+    _attachImageListener();
   }
 
-  /// Downloads the image, decodes it, and computes a target container height.
-  ///
-  /// The height is determined by calculating the image’s aspect ratio (height/width)
-  /// and then linearly interpolating the container height between:
-  ///   - 180 px when ratio ≤ 1 (square or wide image)
-  ///   - 300 px when ratio ≥ 2 (very tall image)
-  /// For ratios in between, the height is scaled continuously.
-  Future<void> _fetchImageDimensions() async {
-    try {
-      final response = await http.get(Uri.parse(widget.imageUrl));
-      if (response.statusCode == 200) {
-        final Uint8List bytes = response.bodyBytes;
-        final decodedImage = img.decodeImage(bytes);
-        if (decodedImage != null) {
-          final int imageWidth = decodedImage.width;
-          final int imageHeight = decodedImage.height;
-          final double ratio = imageHeight / imageWidth;
-          double newHeight;
+  /// Attach a listener to the image stream so we can get its dimensions
+  /// when the image finishes loading.
+  void _attachImageListener() {
+    final imageConfiguration = const ImageConfiguration();
+    _imageStream = _networkImage.resolve(imageConfiguration);
 
-          if (ratio <= 1) {
-            newHeight = 180.0;
-          } else if (ratio >= 2) {
-            newHeight = 300.0;
-          } else {
-            // Linear interpolation between 180 and 300.
-            // When ratio == 1, height = 180; when ratio == 2, height = 300.
-            newHeight = 180.0 + (ratio - 1.0) * 120.0;
-          }
+    _imageStreamListener = ImageStreamListener(
+          (ImageInfo imageInfo, bool synchronousCall) {
+        // Check if the widget is still mounted before calling setState.
+        if (!mounted) return;
+        final image = imageInfo.image;
+        _updateContainerHeight(image.width, image.height);
+      },
+      onError: (exception, stackTrace) {
+        debugPrint("Image load failed: $exception");
+      },
+    );
 
-          // Update the state only if the computed height is different.
-          if (mounted && _containerHeight != newHeight) {
-            setState(() {
-              _containerHeight = newHeight;
-            });
-          }
-        }
-      }
-    } catch (e) {
-      print('Error fetching image dimensions: $e');
+    _imageStream?.addListener(_imageStreamListener);
+  }
+
+  /// Update container height based on the image's aspect ratio.
+  /// The mapping is defined for aspect ratios between 0.5 and 2.0:
+  /// - For an aspect ratio of 0.5 (tall image), height = 300px.
+  /// - For an aspect ratio of 2.0 (wide image), height = 180px.
+  /// Intermediate values are linearly interpolated.
+  void _updateContainerHeight(int imageWidth, int imageHeight) {
+    double aspectRatio = imageWidth / imageHeight;
+
+    // Normalize the aspect ratio to a 0.0 to 1.0 range:
+    // aspectRatio == 0.5  -> t = 0.0 (tall image, 300px)
+    // aspectRatio == 2.0  -> t = 1.0 (wide image, 180px)
+    double t = ((aspectRatio - 0.5) / (1.5 - 0.5)).clamp(0.0, 1.0);
+
+    // Interpolate between 300px (tall) and 180px (wide)
+    double newContainerHeight = 225 - (225 - 140) * t;
+    //debugPrint(
+        //"Image size: $imageWidth x $imageHeight, aspect ratio: $aspectRatio, container height: $newContainerHeight");
+
+    if (mounted) {
+      setState(() {
+        _containerHeight = newContainerHeight;
+      });
     }
+  }
+
+  @override
+  void dispose() {
+    // Remove the image stream listener to prevent callbacks after disposal.
+    _imageStream?.removeListener(_imageStreamListener);
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        // Navigate to the product details page.
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => ProductDetailsPage(
-                    title: 'Product Name',
-                    imageUrl: 'https://bellard.org/bpg/2.png',
-                    price: 12.00,
-                    onAddToCart: () {
-                      Provider.of<CartProvider>(context, listen: false).addItem(
-                        Item(
-                          widget.productId,
-                          widget.imageUrl,
-                          widget.title,
-                          widget.price,
-                          true,
-                        ),
-                      );
-                    },
-                  )),
+            builder: (context) => ProductDetailsPage(
+              title: widget.title,
+              imageUrl: widget.imageUrl,
+              price: widget.price.toDouble(), // Adjust if needed.
+              onAddToCart: () {
+                Provider.of<CartProvider>(context, listen: false).addItem(
+                  Item(
+                    widget.productId,
+                    widget.imageUrl,
+                    widget.title,
+                    widget.price,
+                    true,
+                  ),
+                );
+              },
+            ),
+          ),
         );
-      }, // Navigate to productPage() when tapped anywhere
+      },
       child: Card(
         color: Colors.white,
-        borderOnForeground: false,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
@@ -118,7 +132,7 @@ class _ProductCardState extends State<ProductCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Product Image Container
+            // Image Container with dynamic height.
             ClipRRect(
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(11),
@@ -129,9 +143,9 @@ class _ProductCardState extends State<ProductCard> {
                   Container(
                     width: double.infinity,
                     height: _containerHeight,
-                    color: Color.fromRGBO(0, 0, 0, 0.02),
-                    child: Image.network(
-                      widget.imageUrl,
+                    color: const Color.fromRGBO(0, 0, 0, 0.02),
+                    child: Image(
+                      image: _networkImage,
                       fit: BoxFit.contain,
                       width: double.infinity,
                       height: _containerHeight,
@@ -139,16 +153,15 @@ class _ProductCardState extends State<ProductCard> {
                   ),
                   Positioned.fill(
                     child: Container(
-                      color: Color.fromRGBO(0, 0, 0, 0.02),
+                      color: const Color.fromRGBO(0, 0, 0, 0.02),
                     ),
                   ),
                 ],
               ),
             ),
-
-            // Product Title
+            // Product Title.
             Padding(
-              padding: const EdgeInsets.only(left: 0.0, right: 0.0, top: 1.0),
+              padding: const EdgeInsets.only(top: 1.0),
               child: Text(
                 widget.title,
                 style: const TextStyle(
@@ -161,8 +174,7 @@ class _ProductCardState extends State<ProductCard> {
               ),
             ),
             const SizedBox(height: 3),
-
-            // Additional Product Info Container
+            // Additional Info.
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 0),
               child: Container(
@@ -173,15 +185,15 @@ class _ProductCardState extends State<ProductCard> {
                 child: const Text(
                   "21 x 29,7 cm",
                   style: TextStyle(
-                      fontSize: 13,
-                      color: AppColor.paragraphBlack,
-                      letterSpacing: -0.52),
+                    fontSize: 13,
+                    color: AppColor.paragraphBlack,
+                    letterSpacing: -0.52,
+                  ),
                 ),
               ),
             ),
             const SizedBox(height: 4),
-
-            // Pricing Section
+            // Pricing Section.
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 0),
               child: Baseline(
@@ -217,8 +229,7 @@ class _ProductCardState extends State<ProductCard> {
               ),
             ),
             const SizedBox(height: 5),
-
-            // Add to Basket Button
+            // Add to Basket Button.
             SizedBox(
               width: double.infinity,
               child: Padding(
@@ -231,16 +242,14 @@ class _ProductCardState extends State<ProductCard> {
                     ),
                     padding: const EdgeInsets.symmetric(vertical: 0),
                   ),
-                  onPressed: () {
-                    widget
-                        .onAddToCart(); // Call addToCart when button is pressed
-                  },
+                  onPressed: widget.onAddToCart,
                   child: const Text(
                     "Add to basket",
                     style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                        letterSpacing: -0.62),
+                      fontSize: 16,
+                      color: Colors.white,
+                      letterSpacing: -0.62,
+                    ),
                   ),
                 ),
               ),
