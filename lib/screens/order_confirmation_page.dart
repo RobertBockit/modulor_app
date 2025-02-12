@@ -22,46 +22,42 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
     return Consumer<CartProvider>(
         builder: (BuildContext context, CartProvider order, Widget? child) {
       return Scaffold(
-          body:  SafeArea(
-              left: false,
-              right: false,
-              child:
-              Container(
-                color: AppColor.backgroundGrey, // Set the background color to grey
-                child:
-                Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: TopBar(),
-                  ),
-                  const SizedBox(height: 12),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          PickUpLocation(),
-                          const SizedBox(height: 12),
-                          PaymentMethod(),
-                          const SizedBox(height: 12),
-                          OrderConfirmationItemList(
-                            items: order.items,
-                            changeAmount: order.changeAmount,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: PayButtonBlock(totalPrice: order.totalPrice),
-                  ),
-                ],
+          body: SafeArea(
+        left: false,
+        right: false,
+        child: Container(
+          color: AppColor.backgroundGrey, // Set the background color to grey
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: TopBar(),
               ),
-            ),
-          )
-
-      );
+              const SizedBox(height: 12),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      PickUpLocation(),
+                      const SizedBox(height: 12),
+                      PaymentMethod(),
+                      const SizedBox(height: 12),
+                      OrderConfirmationItemList(
+                        items: order.items,
+                        changeAmount: order.changeAmount,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: PayButtonBlock(totalPrice: order.totalPrice),
+              ),
+            ],
+          ),
+        ),
+      ));
     });
   }
 }
