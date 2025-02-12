@@ -10,27 +10,28 @@ class CartList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     Size size = MediaQuery.of(context).size;
-    return SizedBox(
-      height: items.isNotEmpty ? size.height / 3 : size.height / 2,
+    return Container(child: SizedBox(
       width: size.width,
       child: items.isNotEmpty
           ? ListView.builder(
-              itemCount: items.length,
-              itemBuilder: (context, index) {
-                final Item item = items[index];
-                return CartItemNew(changeAmount: changeAmount, item: item);
-              },
-            )
+        padding: EdgeInsets.zero,
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          final Item item = items[index];
+          return CartItemNew(changeAmount: changeAmount, item: item);
+        },
+      )
           : const Center(
-              child: Text("Your Cart is Empty",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Color.fromRGBO(0, 0, 0, 0.15),
-                    fontWeight: FontWeight.w500,
-                    fontSize: 35,
-                  )),
-            ),
-    );
+        child: Text("",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Color.fromRGBO(0, 0, 0, 0.15),
+              fontWeight: FontWeight.w500,
+              fontSize: 35,
+            )),
+      ),
+    ));
   }
 }
