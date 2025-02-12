@@ -29,9 +29,9 @@ class OrderConfirmationItemList extends StatelessWidget {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
               ),
               Container(
-                constraints: BoxConstraints(
-                  maxHeight: double.infinity,
-                ),
+                  constraints: BoxConstraints(
+                    maxHeight: double.infinity,
+                  ),
                   // height: items.isNotEmpty ? size.height / size.height - items.length : size.height / 2,
                   width: double.infinity,
                   child: ListView.builder(

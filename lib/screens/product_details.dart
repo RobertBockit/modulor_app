@@ -6,7 +6,7 @@ import '../constants/colors.dart';
 import '../models/item.dart';
 import '../providers/cart_provider.dart';
 
-class ProductDetailsPage extends StatelessWidget {
+class ProductDetailsPage extends StatefulWidget {
   final String title;
   final String imageUrl;
   final double price;
@@ -19,6 +19,27 @@ class ProductDetailsPage extends StatelessWidget {
     required this.price,
     required this.onAddToCart,
   });
+
+  @override
+  _ProductDetailsPageState createState() => _ProductDetailsPageState();
+}
+
+class _ProductDetailsPageState extends State<ProductDetailsPage> {
+  int _quantity = 1; // Initializes at 1 every time the page is opened
+
+  void _incrementQuantity() {
+    setState(() {
+      _quantity++;
+    });
+  }
+
+  void _decrementQuantity() {
+    if (_quantity > 1) {
+      setState(() {
+        _quantity--;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +131,61 @@ class ProductDetailsPage extends StatelessWidget {
                               color: AppColor.modulorRed,
                               fontWeight: FontWeight.w400),
                         ),
-                        const SizedBox(height: 10),
+                        Transform.translate(
+                          offset: Offset(-10, 0),
+                          child: Row(
+                            children: [
+                              Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Container(
+                                    width: 24, // Adjust size as needed
+                                    height: 24,
+                                    decoration: BoxDecoration(
+                                      color: Color.fromRGBO(241, 243, 244,
+                                          1), // Use your desired grey color
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(Icons.remove,
+                                        size: 16,
+                                        color: AppColor.paragraphBlack),
+                                    onPressed: () => _decrementQuantity(),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                '$_quantity',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: -0.5,
+                                ),
+                              ),
+                              Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Container(
+                                    width: 24,
+                                    height: 24,
+                                    decoration: BoxDecoration(
+                                      color: Color.fromRGBO(241, 243, 244, 1),
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(Icons.add,
+                                        size: 16,
+                                        color: AppColor.paragraphBlack),
+                                    onPressed: () => _incrementQuantity(),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+
                         Text(
                           'Hochweiß, matt, holzfrei, alterungsbeständig, weitgehend chlorfrei gebleicht, ColorLok, Standardpapier für Kopierer, Laserdrucker, Ink-Jet-Drucker (Schwarz-Linien) und Normalpapier-Fax',
                           style: TextStyle(
@@ -163,7 +238,7 @@ class ProductDetailsPage extends StatelessWidget {
             bottom: 20,
             child: ElevatedButton(
               onPressed: () {
-                onAddToCart();
+                for (var i = 0; i < _quantity; i++) widget.onAddToCart();
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColor.modulorRed,

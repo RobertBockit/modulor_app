@@ -86,7 +86,9 @@ class _BottomNavBarState extends State<BottomNavBar>
                         'assets/icons/home.svg',
                         width: 24,
                         height: 24,
-                        color: appState.selectedIndex == 0 ? AppColor.modulorRed : Colors.black,
+                        color: appState.selectedIndex == 0
+                            ? AppColor.modulorRed
+                            : Colors.black,
                       ),
                       label: 'Home',
                     ),
@@ -95,7 +97,9 @@ class _BottomNavBarState extends State<BottomNavBar>
                         'assets/icons/shopping-cart.svg',
                         width: 24,
                         height: 24,
-                        color: appState.selectedIndex == 1 ? AppColor.modulorRed : Colors.black,
+                        color: appState.selectedIndex == 1
+                            ? AppColor.modulorRed
+                            : Colors.black,
                       ),
                       label: 'Cart',
                     ),
@@ -104,7 +108,9 @@ class _BottomNavBarState extends State<BottomNavBar>
                         'assets/icons/menu.svg',
                         width: 24,
                         height: 24,
-                        color: appState.selectedIndex == 2 ? AppColor.modulorRed : Colors.black,
+                        color: appState.selectedIndex == 2
+                            ? AppColor.modulorRed
+                            : Colors.black,
                       ),
                       label: 'Categories',
                     ),
@@ -113,7 +119,9 @@ class _BottomNavBarState extends State<BottomNavBar>
                         'assets/icons/user.svg',
                         width: 24,
                         height: 24,
-                        color: appState.selectedIndex == 3 ? AppColor.modulorRed : Colors.black,
+                        color: appState.selectedIndex == 3
+                            ? AppColor.modulorRed
+                            : Colors.black,
                       ),
                       label: 'Profile',
                     ),

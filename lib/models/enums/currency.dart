@@ -3,7 +3,7 @@ enum Currency {
   usd,
 }
 
-extension CurrencyName on Currency{
+extension CurrencyName on Currency {
   String get value {
     switch (this) {
       case Currency.euro:
