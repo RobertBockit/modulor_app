@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart'; // Add provider import
+import 'package:provider/provider.dart';
 import '../components/navbar/navbar.dart';
 import '../components/top_menu/top_menu.dart';
-import '../providers/app_state.dart'; // Import AppState
+import '../providers/app_state.dart';
 import 'home_page.dart';
 import 'profile_page.dart';
 import 'cart_page.dart';
@@ -21,7 +21,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     _pages = [
-      HomePage(), // Home page
+      HomePage(),
       Cart(),
       MenuPage(),
       ProfilePage(),
@@ -35,9 +35,10 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          _pages[appState.selectedIndex],
-
-          // The TopMenu stays at the top, not scrollable
+          Padding(
+            padding: EdgeInsets.only(top: 115),
+            child: _pages[appState.selectedIndex],
+          ),
           Positioned(
             top: 0,
             left: 0,
