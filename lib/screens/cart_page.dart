@@ -17,7 +17,7 @@ class Cart extends StatefulWidget {
 class _CartState extends State<Cart> {
   @override
   Widget build(BuildContext context) {
-    double topPadding = MediaQuery.of(context).padding.top + 120; // Adjusted for navbar
+    double topPadding = MediaQuery.of(context).padding.top + 0; // Adjusted for navbar
 
     return Consumer<CartProvider>(
       builder: (BuildContext context, CartProvider order, Widget? child) {
