@@ -7,7 +7,6 @@ import 'home_page.dart';
 import 'profile_page.dart';
 import 'cart_page.dart';
 import 'menu_page.dart';
-import 'support_page.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -16,16 +15,35 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   late final List<Widget> _pages;
+  final ScrollController _scrollController = ScrollController();
+  double _topPadding = 200.0;
 
   @override
   void initState() {
     super.initState();
     _pages = [
-      HomePage(),
+      HomePage(scrollController: _scrollController),
       Cart(),
       MenuPage(),
       ProfilePage(),
     ];
+    _scrollController.addListener(_updateTopPadding);
+  }
+
+  void _updateTopPadding() {
+    double newPadding = _scrollController.offset > 30 ? 80.0 : 200.0;
+    if (newPadding != _topPadding) {
+      setState(() {
+        _topPadding = newPadding;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_updateTopPadding);
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -33,19 +51,22 @@ class _MainScreenState extends State<MainScreen> {
     final appState = Provider.of<AppState>(context);
 
     return Scaffold(
-      body: Stack(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(top: 115),
-            child: _pages[appState.selectedIndex],
-          ),
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: TopMenu(),
-          ),
-        ],
+      body: PrimaryScrollController(
+        controller: _scrollController,
+        child: Stack(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: _topPadding),
+              child: _pages[appState.selectedIndex],
+            ),
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: TopMenu(scrollController: _scrollController),
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavBar(),
     );
