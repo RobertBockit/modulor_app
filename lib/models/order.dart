@@ -6,7 +6,7 @@ import 'item.dart';
 class Order {
   String id = "";
   List<Item> orderItems = [];
-  Price totalPrice = Price(Currency.euro, 0);
+  Price totalPrice = Price(Currency.EUR, 0);
   num totalAmount = 0;
 
   Order(this.orderItems) {
@@ -20,7 +20,7 @@ class Order {
     for (var el in orderItems) {
       newPrice += el.productPrice.price * el.amount;
     }
-    totalPrice = Price(Currency.euro, newPrice);
+    totalPrice = Price(Currency.EUR, newPrice);
   }
 
   void calculateTotalAmount() {

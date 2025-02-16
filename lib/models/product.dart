@@ -36,7 +36,7 @@ class Product {
       id: json['id'].toString(),
       title: json['name'],
       description: json['description'],
-      price: Price(Currency.euro, checkDouble(json['price']['netPrice'])),
+      price: Price(Currency.EUR, checkDouble(json['price']['netPrice'])),
       category: "",
       img: json['images'][0]["formats"]["thumbnail"]["url"],
       createdAt: DateTime.parse(json['createdAt']),
