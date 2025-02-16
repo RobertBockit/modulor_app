@@ -10,7 +10,9 @@ import '../providers/app_state.dart';
 import '../providers/cart_provider.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final ScrollController scrollController;
+
+  const HomePage({Key? key, required this.scrollController}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,73 +23,68 @@ class HomePage extends StatelessWidget {
           child: RefreshIndicator(
             onRefresh: () async => state.pagingController.refresh(),
             child: NestedScrollView(
+              controller: scrollController, // Добавил контроллер
               headerSliverBuilder: (context, innerBoxIsScrolled) {
                 return [
                   SliverToBoxAdapter(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(padding: EdgeInsets.symmetric(horizontal: 10),child:const Text(
-                          "All Categories",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: const Text(
+                            "All Categories",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
                         ),
                         const SizedBox(height: 8),
                         CategoriesRow(),
                         const SizedBox(height: 20),
-                        Padding(padding: EdgeInsets.symmetric(horizontal: 5),child:const Text(
-                          "All Items",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: const Text(
+                            "All Items",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                        ),
-
                       ],
                     ),
                   ),
                 ];
               },
               body: PagedMasonryGridView<int, Product>(
-                padding: EdgeInsets.only(top: 10), // Reduce top padding
+                padding: EdgeInsets.only(top: 10),
                 cacheExtent: 50,
                 pagingController: state.pagingController,
                 gridDelegateBuilder: (context) =>
-                const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // Number of columns
+                    const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
                 ),
                 builderDelegate: PagedChildBuilderDelegate<Product>(
                   animateTransitions: true,
-                  itemBuilder: (context, product, index) => GestureDetector(
-                    onTap: () {
-                      // Handle tap if needed
+                  itemBuilder: (context, product, index) => ProductCard(
+                    productId: product.id,
+                    title: product.title,
+                    imageUrl: product.img,
+                    price: product.price,
+                    onAddToCart: () {
+                      Provider.of<CartProvider>(context, listen: false).addItem(
+                        Item(
+                          product.id,
+                          product.img,
+                          product.title,
+                          product.price,
+                          true,
+                        ),
+                      );
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.all(0.0),
-                      child: ProductCard(
-                        productId: product.id,
-                        title: product.title,
-                        imageUrl: product.img,
-                        price: product.price,
-                        onAddToCart: () {
-                          Provider.of<CartProvider>(context, listen: false)
-                              .addItem(
-                            Item(
-                              product.id,
-                              product.img,
-                              product.title,
-                              product.price,
-                              true,
-                            ),
-                          );
-                        },
-                        description: 'adawdadawd',
-                      ),
-                    ),
+                    description: 'adawdadawd',
                   ),
                 ),
               ),
