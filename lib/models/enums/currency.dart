@@ -1,14 +1,14 @@
 enum Currency {
-  euro,
-  usd,
+  EUR,
+  USD,
 }
 
 extension CurrencyName on Currency {
   String get value {
     switch (this) {
-      case Currency.euro:
+      case Currency.EUR:
         return '€';
-      case Currency.usd:
+      case Currency.USD:
         return '\$';
       default:
         return "€";

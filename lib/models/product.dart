@@ -1,5 +1,6 @@
 import 'package:modulor_app/models/price.dart';
 import 'enums/currency.dart';
+var sourceUrl = "https://mad-shop.onrender.com";
 
 class Product {
   final String id;
@@ -21,16 +22,25 @@ class Product {
       required this.createdAt,
       required this.updatedAt});
 
+  static double checkDouble(dynamic value) {
+    if (value is String) {
+      return double.parse(value);
+    } else {
+      return value.toDouble();
+    }
+  }
+
+
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
       id: json['id'].toString(),
-      title: json['title'],
+      title: json['name'],
       description: json['description'],
-      price: Price(Currency.euro, json['price']),
-      category: json["category"],
-      img: json['images'][0],
-      createdAt: DateTime.parse(json["meta"]['createdAt']),
-      updatedAt: DateTime.parse(json["meta"]['updatedAt']),
+      price: Price(Currency.EUR, checkDouble(json['price']['netPrice'])),
+      category: "",
+      img: json['images'][0]["formats"]["thumbnail"]["url"],
+      createdAt: DateTime.parse(json['createdAt']),
+      updatedAt: DateTime.parse(json['updatedAt']),
     );
   }
 }

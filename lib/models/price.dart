@@ -2,7 +2,7 @@ import 'enums/currency.dart';
 
 class Price {
   Price(this.currency, this.price);
-  Currency currency = Currency.euro;
+  Currency currency = Currency.EUR;
   double price = 0;
 
   String toStringAsFixed(int fractionDigits) {

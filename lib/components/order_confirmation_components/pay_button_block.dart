@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:modulor_app/constants/colors.dart';
 import 'package:modulor_app/models/enums/currency.dart';
+import 'package:modulor_app/providers/app_state.dart';
+import 'package:modulor_app/providers/cart_provider.dart';
 import 'package:modulor_app/screens/retrieval_page.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/price.dart';
 
@@ -13,8 +16,13 @@ class PayButtonBlock extends StatelessWidget {
     required this.totalPrice,
   });
 
+
+
   @override
   Widget build(BuildContext context) {
+    var jwtToken = "";
+    Provider.of<AppState>(context, listen: false).jwt.then((val){jwtToken = val;});
+    var api = Provider.of<AppState>(context, listen: false).apiUrl;
     return Container(
         // color: Colors.white,
         width: double.infinity,
@@ -42,6 +50,9 @@ class PayButtonBlock extends StatelessWidget {
                     ]),
                 ElevatedButton(
                   onPressed: () => {
+
+                    Provider.of<CartProvider>(context, listen: false).confirmOrder(jwtToken, api),
+
                     Navigator.push(
                         context,
                         MaterialPageRoute(

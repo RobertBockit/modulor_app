@@ -4,10 +4,14 @@ import 'package:http/http.dart' as http;
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import '../models/product.dart'; // Make sure to import this for ChangeNotifier
 
+
 class AppState with ChangeNotifier {
   int _selectedIndex = 0;
+  var apiUrl = "https://mad-shop.onrender.com/api";
 
   static var items; // Initial selected index
+
+  late final Future<String> _jwtToken;
 
   int get selectedIndex => _selectedIndex; // Getter for selectedIndex
 
@@ -20,11 +24,14 @@ class AppState with ChangeNotifier {
 
   Future<List<Product>> get products => _products;
 
+  Future<String> get jwt => _jwtToken;
+
   static const int _pageSize = 10;
 
   String? _searchQuery;
 
   late final Future<List<String>> _categories;
+
   Future<List<String>> get categories => _categories;
 
   List<String> selectedCategories = [];
@@ -45,11 +52,10 @@ class AppState with ChangeNotifier {
         pagingController.appendLastPage(newItems);
       } else {
         final nextPageKey = pageKey + newItems.length;
-        print("next page");
-        print(nextPageKey);
         pagingController.appendPage(newItems, nextPageKey as int?);
       }
     } catch (error) {
+      print(error);
       pagingController.error = error;
     }
   }
@@ -58,19 +64,16 @@ class AppState with ChangeNotifier {
     http.Response response;
     if (_searchQuery == null) {
       response = await http.get(Uri.parse(
-          'https://dummyjson.com/products?skip=$pageNum&limit=$_pageSize'));
-    } else if (selectedCategories.isNotEmpty) {
-      response = await http.get(Uri.parse(
-          'https://dummyjson.com/products/category/${selectedCategories[0]}'));
+          '$apiUrl/products?populate=*&pagination[page]=$pageNum&pagination[pageSize]=$_pageSize'));
     } else {
-      response = await http.get(
-          Uri.parse('https://dummyjson.com/products/search?q=$_searchQuery'));
+      response = await http.get(Uri.parse(
+          '$apiUrl/products?populate=*&filters[name][\$contains]=$_searchQuery'));
     }
 
     if (response.statusCode == 200) {
       var body = json.decode(response.body);
 
-      return body["products"].map<Product>((e) => Product.fromJson(e)).toList();
+      return body["data"].map<Product>((e) => Product.fromJson(e)).toList();
     } else {
       throw Exception('Failed to load products');
     }
@@ -93,11 +96,54 @@ class AppState with ChangeNotifier {
     pagingController.refresh();
   }
 
+  Future<String> logInUser() async {
+    var response = await http.post(
+      Uri.parse('$apiUrl/auth/local'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: json.encode({
+        'identifier': 'test@test.com',
+        'password': '1488228'
+      }),
+    );
+    if (response.statusCode == 200) {
+      // print(await response.stream.bytesToString());
+      var body = json.decode(response.body);
+      return body["jwt"].toString();
+    }
+    else {
+      // throw Exception('Failed to load products');
+      var response = await http.post(
+        Uri.parse('$apiUrl/auth/local/register'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: json.encode({
+          'username': "test test",
+          'email': 'test@test.com',
+          'password': '1488228'
+        }),
+      );
+      if (response.statusCode == 200) {
+        // print(await response.stream.bytesToString());
+        var body = json.decode(response.body);
+        return body["jwt"].toString();
+      }
+      else {
+        // print(response.reasonPhrase);reasonPhrase
+        throw Exception("ERrOR ${response.reasonPhrase}");
+      }
+    }
+  }
+
   AppState() {
     // _products = getProductsFromTheServer(1);
     pagingController.addPageRequestListener((pageKey) {
       _fetchPage(pageKey);
     });
     _categories = getAllCategories();
+    _jwtToken = logInUser();
+    print(_jwtToken);
   }
 }
