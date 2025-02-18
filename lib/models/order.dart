@@ -18,7 +18,9 @@ class Order {
   void calculateTotalPrice() {
     double newPrice = 0;
     for (var el in orderItems) {
-      newPrice += el.productPrice.price * el.amount;
+      if(el.isSelected == true) {
+        newPrice += el.productPrice.price * el.amount;
+      }
     }
     totalPrice = Price(Currency.EUR, newPrice);
   }
@@ -26,7 +28,10 @@ class Order {
   void calculateTotalAmount() {
     num newTotalAmount = 0;
     for (var el in orderItems) {
-      newTotalAmount += el.amount;
+      if(el.isSelected == true){
+        newTotalAmount += el.amount;
+      }
+
     }
 
     totalAmount = newTotalAmount;

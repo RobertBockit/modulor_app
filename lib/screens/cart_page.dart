@@ -36,7 +36,7 @@ class _CartState extends State<Cart> {
                       children: [
                         Row(
                           children: [
-                            ToggleCheckBox(),
+
                             const SizedBox(width: 20),
                             const Text(
                               "Select All",
@@ -62,6 +62,7 @@ class _CartState extends State<Cart> {
                     child: CartList(
                       items: order.items,
                       changeAmount: order.changeAmount,
+                      toggleIsSelected: order.toggleIsSelected
                     ),
                   ),
                 ],

@@ -54,6 +54,18 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void toggleIsSelected(String id, bool isSelected){
+    for (var el in _order.orderItems) {
+      if (el.productId == id) {
+        el.isSelected = isSelected;
+      }
+    }
+    _order.calculateTotalAmount();
+    _order.calculateTotalPrice();
+    notifyListeners();
+  }
+
+
   void removeItem(String productId) {
     _order.removeProduct(productId);
     notifyListeners();
