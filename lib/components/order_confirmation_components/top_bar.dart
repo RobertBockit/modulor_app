@@ -11,7 +11,7 @@ class TopBar extends StatelessWidget {
     return AppBar(
       backgroundColor: Colors.white,
       title: Text(value),
-      leading: Icon(Icons.arrow_back),
+      leading: GestureDetector(child:  Icon(Icons.arrow_back), onTap: (){Navigator.pop(context);},),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           bottom: Radius.circular(11),
