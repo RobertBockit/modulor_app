@@ -42,7 +42,7 @@ class PayButtonBlock extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                          "Total amount: ${totalPrice.price}${totalPrice.currency.value}",
+                          "Total amount: ${totalPrice.price.toStringAsFixed(2)}${totalPrice.currency.value}",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w700)),
                       Text(
@@ -62,6 +62,7 @@ class PayButtonBlock extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: AppColor.modulorRed,
+                      shadowColor: Colors.transparent,
                       fixedSize: Size(190, 42),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(11)))),
