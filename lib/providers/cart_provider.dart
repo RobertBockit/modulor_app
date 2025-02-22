@@ -54,7 +54,12 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void toggleIsSelected(String id, bool isSelected){
+  bool get areAllItemsSelected {
+    return _order.orderItems.every((el) => el.isSelected);
+  }
+
+  // Toggle selection for a single item
+  void toggleIsSelected(String id, bool isSelected) {
     for (var el in _order.orderItems) {
       if (el.productId == id) {
         el.isSelected = isSelected;
@@ -62,6 +67,27 @@ class CartProvider with ChangeNotifier {
     }
     _order.calculateTotalAmount();
     _order.calculateTotalPrice();
+
+    // Notify listeners to update the UI
+    notifyListeners();
+  }
+
+  // Toggle selection for all items
+  void toggleAllSelected(bool isSelected) {
+    for (var el in _order.orderItems) {
+      el.isSelected = isSelected; // Toggle the selection for all items
+    }
+    _order.calculateTotalAmount();
+    _order.calculateTotalPrice();
+    notifyListeners();
+  }
+
+  // Method to update the "Select All" button state
+  void updateSelectAllState() {
+    bool newSelectAllState = areAllItemsSelected;
+    // You can store this state in a variable or use it directly in your UI logic
+    // For example, you might have a boolean field like `isSelectAllEnabled` in your provider:
+    // _isSelectAllEnabled = newSelectAllState;
     notifyListeners();
   }
 
