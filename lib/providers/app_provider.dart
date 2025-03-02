@@ -67,7 +67,7 @@ class AppProvider with ChangeNotifier {
           '$apiUrl/products?populate=*&pagination[page]=$pageNum&pagination[pageSize]=$_pageSize'));
     } else {
       response = await http.get(Uri.parse(
-          '$apiUrl/products?populate=*&filters[name][\$contains]=$_searchQuery'));
+          '$apiUrl/products?populate=*&filters[name][\$containsi]=$_searchQuery'));
     }
 
     if (response.statusCode == 200) {
