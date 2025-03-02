@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modulor_app/constants/colors.dart';
 import 'package:modulor_app/models/enums/currency.dart';
-import 'package:modulor_app/providers/app_state.dart';
+import 'package:modulor_app/providers/app_provider.dart';
 import 'package:modulor_app/providers/cart_provider.dart';
 import 'package:modulor_app/screens/retrieval_page.dart';
 import 'package:provider/provider.dart';

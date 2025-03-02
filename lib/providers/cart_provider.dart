@@ -73,7 +73,7 @@ class CartProvider with ChangeNotifier {
       },
       body: json.encode({
         "data": {
-          "orderStatus": "UNPAID",
+          "orderStatus": "PAID",
           "issue": true,
           "items": _order.orderItems.map((element){
 
@@ -94,7 +94,7 @@ class CartProvider with ChangeNotifier {
     if (response.statusCode == 201) {
       // print(await response.stream.bytesToString());
       var body = json.decode(response.body);
-      print(body);
+      print(body["data"]["documentId"]);
     }
     else{
       throw Exception(response.statusCode);

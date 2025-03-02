@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:modulor_app/providers/app_state.dart'; // Import AppState class
+import 'package:modulor_app/providers/app_provider.dart'; // Import AppState class
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../constants/colors.dart';
