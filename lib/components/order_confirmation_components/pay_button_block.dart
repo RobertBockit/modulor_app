@@ -21,8 +21,8 @@ class PayButtonBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var jwtToken = "";
-    Provider.of<AppState>(context, listen: false).jwt.then((val){jwtToken = val;});
-    var api = Provider.of<AppState>(context, listen: false).apiUrl;
+    Provider.of<AppProvider>(context, listen: false).jwt.then((val){jwtToken = val;});
+    var api = Provider.of<AppProvider>(context, listen: false).apiUrl;
     return Container(
         // color: Colors.white,
         width: double.infinity,
@@ -51,14 +51,7 @@ class PayButtonBlock extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () => {
 
-                    Provider.of<CartProvider>(context, listen: false).confirmOrder(jwtToken, api),
-
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              RetrievalPage(),
-                        ))
+                    Provider.of<CartProvider>(context, listen: false).confirmOrder(jwtToken, api, context),
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: AppColor.modulorRed,

@@ -4,12 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 class PickUpProvider with ChangeNotifier{
   late String pickupId = "";
-  late String orderId;
   late String pickUpStatus = "";
 
-  PickUpProvider({required this.orderId});
-
-  Future<void> createPickUpProcess(jwt, apiUrl)async {
+  Future<void> createPickUpProcess(jwt, apiUrl, orderId)async {
+    print(jwt);
     var response = await http.post(
         Uri.parse('$apiUrl/orders/$orderId/start-pickup'),
         headers: <String, String>{
@@ -19,8 +17,11 @@ class PickUpProvider with ChangeNotifier{
     );
     if(response.statusCode==201){
       var body = json.decode(response.body);
-      pickupId = body["documentId"];
-      pickUpStatus = body["progress"];
+      pickupId = body["data"]["documentId"];
+      pickUpStatus = body["data"]["progress"];
+      print(body);
+      notifyListeners();
+
     }
     else{
       throw Exception(response.statusCode);
@@ -28,7 +29,7 @@ class PickUpProvider with ChangeNotifier{
   }
 
   Future<void> checkPickUpProgress(jwt, apiUrl) async{
-    var response = await http.post(
+    var response = await http.get(
       Uri.parse('$apiUrl/pickups/$pickupId'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
@@ -37,7 +38,9 @@ class PickUpProvider with ChangeNotifier{
     );
     if(response.statusCode==201){
       var body = json.decode(response.body);
-      pickUpStatus = body["progress"];
+      pickUpStatus = body["data"]["progress"];
+      notifyListeners();
+
     }
     else{
       throw Exception(response.statusCode);

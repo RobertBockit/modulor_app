@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modulor_app/providers/cart_provider.dart';
+import 'package:modulor_app/providers/pick_up_provider.dart';
 import 'package:modulor_app/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:modulor_app/providers/app_provider.dart';
@@ -8,8 +9,9 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => AppState()),
+        ChangeNotifierProvider(create: (context) => AppProvider()),
         ChangeNotifierProvider(create: (context) => CartProvider()),
+        ChangeNotifierProvider(create: (context)=>PickUpProvider())
       ],
       child: MyApp(),
     ),

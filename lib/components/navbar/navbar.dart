@@ -33,7 +33,7 @@ class _BottomNavBarState extends State<BottomNavBar>
   void didUpdateWidget(covariant BottomNavBar oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    final appState = Provider.of<AppState>(context, listen: false);
+    final appState = Provider.of<AppProvider>(context, listen: false);
 
     // Set the previous index to the current one before updating to the new one
     int newIndex = appState.selectedIndex;
@@ -63,7 +63,7 @@ class _BottomNavBarState extends State<BottomNavBar>
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppState>(
+    return Consumer<AppProvider>(
       builder: (context, appState, child) {
         return Column(
           mainAxisSize: MainAxisSize.min,

@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppState>(
+    return Consumer<AppProvider>(
       builder: (context, state, child) => Scaffold(
         body: Column(
           children: [
