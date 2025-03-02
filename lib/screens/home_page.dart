@@ -7,7 +7,7 @@ import '../components/categories_list/categories_row.dart';
 import '../components/product_card/product_card.dart';
 import '../models/item.dart';
 import '../models/product.dart';
-import '../providers/app_state.dart';
+import '../providers/app_provider.dart';
 import '../providers/cart_provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppState>(
+    return Consumer<AppProvider>(
       builder: (context, state, child) => Scaffold(
         body: Column(
           children: [

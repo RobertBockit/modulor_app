@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import '../models/item.dart';
 import '../models/order.dart';
 import '../models/price.dart';
+import '../screens/retrieval_page.dart';
 
 class CartProvider with ChangeNotifier {
   final Order _order = Order([]);
@@ -102,7 +103,7 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void confirmOrder(jwt, apiUrl) async{
+  void confirmOrder(jwt, apiUrl, context) async{
     var response = await http.post(
       Uri.parse('$apiUrl/orders?populate=*'),
       headers: <String, String>{
@@ -111,7 +112,7 @@ class CartProvider with ChangeNotifier {
       },
       body: json.encode({
         "data": {
-          "orderStatus": "UNPAID",
+          "orderStatus": "PAID",
           "issue": true,
           "items": _order.orderItems.map((element){
 
@@ -132,7 +133,14 @@ class CartProvider with ChangeNotifier {
     if (response.statusCode == 201) {
       // print(await response.stream.bytesToString());
       var body = json.decode(response.body);
-      print(body);
+      _order.id = body["data"]["documentId"];
+      print(_order.id);
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                RetrievalPage(),
+          ));
     }
     else{
       throw Exception(response.statusCode);

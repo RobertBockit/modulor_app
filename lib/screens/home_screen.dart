@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../components/navbar/navbar.dart';
 import '../components/top_menu/top_menu.dart';
-import '../providers/app_state.dart';
+import '../providers/app_provider.dart';
 import 'home_page.dart';
 import 'profile_page.dart';
 import 'cart_page.dart';
@@ -49,7 +49,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final appState = Provider.of<AppState>(context);
+    final appState = Provider.of<AppProvider>(context);
 
     return Scaffold(
       body: Stack(
