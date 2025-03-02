@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:modulor_app/providers/app_provider.dart';
+import 'dart:async';
+
+import 'package:provider/provider.dart';
 
 class TopMenu extends StatefulWidget {
   final ScrollController scrollController;
@@ -11,6 +15,8 @@ class TopMenu extends StatefulWidget {
 
 class _TopMenuState extends State<TopMenu> {
   bool _isScrolled = false;
+  Timer? _debounce;
+
 
   @override
   void initState() {
@@ -29,6 +35,16 @@ class _TopMenuState extends State<TopMenu> {
 
   @override
   Widget build(BuildContext context) {
+
+    onSearchChanged(String query) {
+      if (_debounce?.isActive ?? false) _debounce?.cancel();
+      _debounce = Timer(const Duration(milliseconds: 500), () {
+        Provider.of<AppProvider>(context, listen: false).setSearchQuery(query);
+      });
+    }
+
+
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -85,6 +101,9 @@ class _TopMenuState extends State<TopMenu> {
                           borderSide: BorderSide.none,
                         ),
                       ),
+                      onChanged: (value){
+                        onSearchChanged(value);
+                      },
                       style: const TextStyle(fontSize: 16),
                     ),
                   ),
@@ -130,6 +149,8 @@ class _TopMenuState extends State<TopMenu> {
   @override
   void dispose() {
     widget.scrollController.removeListener(_onScroll);
+    _debounce?.cancel();
+
     super.dispose();
   }
 }
