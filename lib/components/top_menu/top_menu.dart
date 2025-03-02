@@ -32,17 +32,27 @@ class _TopMenuState extends State<TopMenu> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-          color: Colors.white,
+        AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.vertical(
+              bottom: Radius.circular(20), // Закругление снизу
+            ),
+          ),
+          clipBehavior: Clip.hardEdge,
           child: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+              padding: EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: _isScrolled ? 4.0 : 8.0, // Меняем отступ при скролле
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   AnimatedSize(
-                    duration: Duration(milliseconds: 300),
+                    duration: const Duration(milliseconds: 300),
                     child: _isScrolled
                         ? SizedBox.shrink()
                         : Image.asset(
@@ -51,7 +61,9 @@ class _TopMenuState extends State<TopMenu> {
                       width: double.infinity,
                     ),
                   ),
-                  const SizedBox(height: 1),
+                  const SizedBox(height: 5),
+
+                  // Поисковая строка теперь сверху
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
@@ -62,8 +74,8 @@ class _TopMenuState extends State<TopMenu> {
                         filled: true,
                         fillColor: Colors.grey[200],
                         hintText: 'Search for items',
-                        hintStyle: TextStyle(
-                          color: Colors.grey[600],
+                        hintStyle: const TextStyle(
+                          color: Colors.grey,
                           fontSize: 16,
                         ),
                         prefixIcon: const Icon(Icons.search, color: Colors.grey),
@@ -76,38 +88,35 @@ class _TopMenuState extends State<TopMenu> {
                       style: const TextStyle(fontSize: 16),
                     ),
                   ),
-                  AnimatedSize(
-                    duration: Duration(milliseconds: 300),
-                    child: _isScrolled
-                        ? SizedBox.shrink()
-                        : Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          InkWell(
-                            onTap: () {},
-                            borderRadius: BorderRadius.circular(8),
-                            child: Row(
-                              children: [
-                                const Icon(Icons.location_pin, color: Colors.black, size: 16),
-                                const SizedBox(width: 3),
-                                const Text(
-                                  'Locker Humboldt Uni',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(width: 3),
-                                const Icon(Icons.keyboard_arrow_down_rounded, color: Colors.black, size: 16),
-                              ],
+
+                  const SizedBox(height: 5),
+
+                  // Теперь "Locker Humboldt Uni" находится ниже поиска
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      InkWell(
+                        onTap: () {},
+                        borderRadius: BorderRadius.circular(8),
+                        child: Row(
+                          children: const [
+                            Icon(Icons.location_pin, color: Colors.black, size: 16),
+                            SizedBox(width: 3),
+                            Text(
+                              'Locker Humboldt Uni',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        ],
+                            SizedBox(width: 3),
+                            Icon(Icons.keyboard_arrow_down_rounded,
+                                color: Colors.black, size: 16),
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ],
               ),
