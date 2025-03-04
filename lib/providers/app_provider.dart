@@ -37,7 +37,7 @@ class AppProvider with ChangeNotifier {
   List<String> selectedCategories = [];
 
   final PagingController<int, Product> pagingController =
-      PagingController(firstPageKey: 0);
+  PagingController(firstPageKey: 0);
 
   void setSearchQuery(String newQuery) {
     _searchQuery = newQuery.trim().isEmpty ? null : newQuery.trim();
