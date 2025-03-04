@@ -11,26 +11,23 @@ class Cart extends StatefulWidget {
   const Cart({super.key});
 
   @override
-  State<StatefulWidget> createState() => _CartState();
+  State<Cart> createState() => _CartState();
 }
 
 class _CartState extends State<Cart> {
   @override
   Widget build(BuildContext context) {
-    double topPadding = MediaQuery.of(context).padding.top + 0; // Adjusted for navbar
-
     return Consumer<CartProvider>(
       builder: (BuildContext context, CartProvider order, Widget? child) {
         return Stack(
           children: [
-            // Main content without bottom padding so that the list scrolls under the button.
             Padding(
-              padding: EdgeInsets.only(top: topPadding, left: 10, right: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 30),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -51,13 +48,13 @@ class _CartState extends State<Cart> {
                           'assets/icons/trash-2.svg',
                           width: 24,
                           height: 24,
-                          color: Color.fromRGBO(164, 164, 164, 1),
+                          color: const Color.fromRGBO(164, 164, 164, 1),
                         )
                       ],
                     ),
                   ),
                   const SizedBox(height: 10),
-                  // Product List. (If needed, add padding inside CartList so items aren’t hidden behind the button.)
+                  // Список товаров
                   Expanded(
                     child: CartList(
                       items: order.items,
@@ -67,14 +64,13 @@ class _CartState extends State<Cart> {
                 ],
               ),
             ),
-
-            // Floating Checkout Button on top of the product list.
+            // Плавающая кнопка Checkout
             Positioned(
               bottom: 20,
               left: 20,
               right: 20,
               child: Material(
-                elevation: 8, // This gives a floating look
+                elevation: 8,
                 borderRadius: BorderRadius.circular(11),
                 child: ElevatedButton(
                   onPressed: () {
