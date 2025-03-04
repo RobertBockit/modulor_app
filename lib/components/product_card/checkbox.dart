@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
-
 import '../../constants/colors.dart';
 
-class ToggleCheckBox extends StatefulWidget {
-  @override
-  _ToggleCheckBoxState createState() => _ToggleCheckBoxState();
-}
+class ToggleCheckBox extends StatelessWidget {
+  final String itemId;
+  final bool isChecked;
+  final void Function(String id, bool isSelected) toggleIsSelected;
 
-class _ToggleCheckBoxState extends State<ToggleCheckBox> {
-  bool isChecked = true; // Initial state
+  const ToggleCheckBox({
+    Key? key,
+    required this.itemId,
+    required this.isChecked,
+    required this.toggleIsSelected,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        setState(() {
-          isChecked = !isChecked; // Toggle state
-        });
+        toggleIsSelected(itemId, !isChecked); // Toggle the selection state
       },
       child: Container(
         width: 35,
@@ -27,7 +28,7 @@ class _ToggleCheckBoxState extends State<ToggleCheckBox> {
         ),
         child: isChecked
             ? const Icon(Icons.check, color: Colors.white, size: 24)
-            : null, // No icon when unchecked
+            : null,
       ),
     );
   }

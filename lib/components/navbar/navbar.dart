@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:modulor_app/providers/app_provider.dart'; // Import AppState class
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../providers/app_state.dart';
 import '../../constants/colors.dart';
 import '../../providers/cart_provider.dart';
 
@@ -35,7 +35,7 @@ class _BottomNavBarState extends State<BottomNavBar>
   void didUpdateWidget(covariant BottomNavBar oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    final appState = Provider.of<AppState>(context, listen: false);
+    final appState = Provider.of<AppProvider>(context, listen: false);
 
     // Set the previous index to the current one before updating to the new one
     int newIndex = appState.selectedIndex;
@@ -65,7 +65,7 @@ class _BottomNavBarState extends State<BottomNavBar>
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppState>(
+    return Consumer<AppProvider>(
       builder: (context, appState, child) {
         return Column(
           mainAxisSize: MainAxisSize.min,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modulor_app/constants/colors.dart';
 import 'package:modulor_app/models/enums/currency.dart';
-import 'package:modulor_app/providers/app_state.dart';
+import 'package:modulor_app/providers/app_provider.dart';
 import 'package:modulor_app/providers/cart_provider.dart';
 import 'package:modulor_app/screens/retrieval_page.dart';
 import 'package:provider/provider.dart';
@@ -21,8 +21,8 @@ class PayButtonBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var jwtToken = "";
-    Provider.of<AppState>(context, listen: false).jwt.then((val){jwtToken = val;});
-    var api = Provider.of<AppState>(context, listen: false).apiUrl;
+    Provider.of<AppProvider>(context, listen: false).jwt.then((val){jwtToken = val;});
+    var api = Provider.of<AppProvider>(context, listen: false).apiUrl;
     return Container(
         // color: Colors.white,
         width: double.infinity,
@@ -42,7 +42,7 @@ class PayButtonBlock extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                          "Total amount: ${totalPrice.price}${totalPrice.currency.value}",
+                          "Total amount: ${totalPrice.price.toStringAsFixed(2)}${totalPrice.currency.value}",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w700)),
                       Text(
@@ -51,17 +51,11 @@ class PayButtonBlock extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () => {
 
-                    Provider.of<CartProvider>(context, listen: false).confirmOrder(jwtToken, api),
-
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              RetrievalPage(),
-                        ))
+                    Provider.of<CartProvider>(context, listen: false).confirmOrder(jwtToken, api, context),
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: AppColor.modulorRed,
+                      shadowColor: Colors.transparent,
                       fixedSize: Size(190, 42),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(11)))),

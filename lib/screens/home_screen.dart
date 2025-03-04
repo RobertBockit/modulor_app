@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:modulor_app/providers/app_state.dart';
+import 'package:modulor_app/providers/app_provider.dart';
 import '../components/navbar/navbar.dart';
 import '../components/top_menu/top_menu.dart';
 import 'home_page.dart';
@@ -33,7 +33,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   void _updateTopPadding() {
-    final appState = Provider.of<AppState>(context, listen: false);
+    final appState = Provider.of<AppProvider>(context, listen: false);
     // Если экран корзины (индекс 1), не обновляем отступ динамически
     if (appState.selectedIndex == 1) return;
 
@@ -65,7 +65,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final appState = Provider.of<AppState>(context);
+    final appState = Provider.of<AppProvider>(context);
     final currentIndex = appState.selectedIndex;
 
     // Для экрана корзины (индекс 1) принудительно сжимаем TopMenu

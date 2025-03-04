@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import '../models/item.dart';
 import '../models/order.dart';
 import '../models/price.dart';
+import '../screens/retrieval_page.dart';
 
 class CartProvider with ChangeNotifier {
   final Order _order = Order([]);
@@ -54,6 +55,44 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  bool get areAllItemsSelected {
+    return _order.orderItems.every((el) => el.isSelected);
+  }
+
+  // Toggle selection for a single item
+  void toggleIsSelected(String id, bool isSelected) {
+    for (var el in _order.orderItems) {
+      if (el.productId == id) {
+        el.isSelected = isSelected;
+      }
+    }
+    _order.calculateTotalAmount();
+    _order.calculateTotalPrice();
+
+    // Notify listeners to update the UI
+    notifyListeners();
+  }
+
+  // Toggle selection for all items
+  void toggleAllSelected(bool isSelected) {
+    for (var el in _order.orderItems) {
+      el.isSelected = isSelected; // Toggle the selection for all items
+    }
+    _order.calculateTotalAmount();
+    _order.calculateTotalPrice();
+    notifyListeners();
+  }
+
+  // Method to update the "Select All" button state
+  void updateSelectAllState() {
+    bool newSelectAllState = areAllItemsSelected;
+    // You can store this state in a variable or use it directly in your UI logic
+    // For example, you might have a boolean field like `isSelectAllEnabled` in your provider:
+    // _isSelectAllEnabled = newSelectAllState;
+    notifyListeners();
+  }
+
+
   void removeItem(String productId) {
     _order.removeProduct(productId);
     notifyListeners();
@@ -64,7 +103,7 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void confirmOrder(jwt, apiUrl) async{
+  void confirmOrder(jwt, apiUrl, context) async{
     var response = await http.post(
       Uri.parse('$apiUrl/orders?populate=*'),
       headers: <String, String>{
@@ -73,7 +112,7 @@ class CartProvider with ChangeNotifier {
       },
       body: json.encode({
         "data": {
-          "orderStatus": "UNPAID",
+          "orderStatus": "PAID",
           "issue": true,
           "items": _order.orderItems.map((element){
 
@@ -94,7 +133,14 @@ class CartProvider with ChangeNotifier {
     if (response.statusCode == 201) {
       // print(await response.stream.bytesToString());
       var body = json.decode(response.body);
-      print(body);
+      _order.id = body["data"]["documentId"];
+      print(_order.id);
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                RetrievalPage(),
+          ));
     }
     else{
       throw Exception(response.statusCode);

@@ -5,7 +5,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import '../models/product.dart'; // Make sure to import this for ChangeNotifier
 
 
-class AppState with ChangeNotifier {
+class AppProvider with ChangeNotifier {
   int _selectedIndex = 0;
   var apiUrl = "https://mad-shop.onrender.com/api";
 
@@ -67,7 +67,7 @@ class AppState with ChangeNotifier {
           '$apiUrl/products?populate=*&pagination[page]=$pageNum&pagination[pageSize]=$_pageSize'));
     } else {
       response = await http.get(Uri.parse(
-          '$apiUrl/products?populate=*&filters[name][\$contains]=$_searchQuery'));
+          '$apiUrl/products?populate=*&filters[name][\$containsi]=$_searchQuery'));
     }
 
     if (response.statusCode == 200) {
@@ -110,6 +110,7 @@ class AppState with ChangeNotifier {
     if (response.statusCode == 200) {
       // print(await response.stream.bytesToString());
       var body = json.decode(response.body);
+      print(body["jwt"]);
       return body["jwt"].toString();
     }
     else {
@@ -128,6 +129,7 @@ class AppState with ChangeNotifier {
       if (response.statusCode == 200) {
         // print(await response.stream.bytesToString());
         var body = json.decode(response.body);
+        print(body["jwt"]);
         return body["jwt"].toString();
       }
       else {
@@ -137,7 +139,7 @@ class AppState with ChangeNotifier {
     }
   }
 
-  AppState() {
+  AppProvider() {
     // _products = getProductsFromTheServer(1);
     pagingController.addPageRequestListener((pageKey) {
       _fetchPage(pageKey);

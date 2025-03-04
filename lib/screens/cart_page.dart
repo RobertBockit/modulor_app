@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:modulor_app/components/cart_components/select_all_checkbox.dart';
 import 'package:provider/provider.dart';
 import '../components/cart_components/cart_list.dart';
-import '../components/product_card/checkbox.dart';
 import '../constants/colors.dart';
 import '../providers/cart_provider.dart';
 import 'order_confirmation_page.dart';
@@ -33,7 +33,12 @@ class _CartState extends State<Cart> {
                       children: [
                         Row(
                           children: [
-                            ToggleCheckBox(),
+                            SelectAllCheckbox(
+                              isChecked: order.areAllItemsSelected,
+                              onTap: (isSelected) {
+                                order.toggleAllSelected(isSelected);
+                              },
+                            ),
                             const SizedBox(width: 20),
                             const Text(
                               "Select All",
@@ -56,9 +61,14 @@ class _CartState extends State<Cart> {
                   const SizedBox(height: 10),
                   // Список товаров
                   Expanded(
-                    child: CartList(
-                      items: order.items,
-                      changeAmount: order.changeAmount,
+                    child: Consumer<CartProvider>(
+                      builder: (context, order, child) {
+                        return CartList(
+                          items: order.items,
+                          changeAmount: order.changeAmount,
+                          toggleIsSelected: order.toggleIsSelected,
+                        );
+                      },
                     ),
                   ),
                 ],

@@ -5,8 +5,9 @@ import 'cart_item.dart';
 class CartList extends StatelessWidget {
   final List<Item> items;
   final void Function(String id, num newAmount) changeAmount;
+  final void Function(String id, bool isSelected) toggleIsSelected;
 
-  const CartList({super.key, required this.items, required this.changeAmount});
+  const CartList({super.key, required this.items, required this.changeAmount, required this.toggleIsSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class CartList extends StatelessWidget {
         itemCount: items.length,
         itemBuilder: (context, index) {
           final Item item = items[index];
-          return CartItemNew(changeAmount: changeAmount, item: item);
+          return CartItemNew(changeAmount: changeAmount, item: item, toggleIsSelected: toggleIsSelected);
         },
       )
           : const Center(
