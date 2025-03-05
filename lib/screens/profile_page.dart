@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:modulor_app/components/profile_components/orders_list.dart';
+import 'package:modulor_app/constants/colors.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Profile Page', style: TextStyle(fontSize: 24)),
+    return Scaffold(
+      backgroundColor: AppColor.backgroundGrey,
+      body: SingleChildScrollView(// Добавляем скролл всей страницы
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children:[OrdersList(isActive: true,),SizedBox(height: 20), OrdersList(isActive: false) ]),
+        ),
+      ),
     );
   }
 }
