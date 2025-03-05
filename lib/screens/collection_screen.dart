@@ -37,10 +37,10 @@ class _RetrievalPage extends State<CollectionScreen> {
     });
 
     var text = "Order in Collection | Please take items from the locker";
-    var orderStatus = " ";
-    var textColor = orderStatus == "finished"
-        ? Color.fromRGBO(238, 120, 10, 1)
-        : Color.fromRGBO(32, 160, 7, 1);
+    var isOrderFinished = false;
+    var textColor = isOrderFinished == true
+        ? Color.fromRGBO(32, 160, 7, 1)
+        : Color.fromRGBO(238, 120, 10, 1);
     void checkOrderRepeatedly(String jwt, String api) async {
       while (mounted) {
         await Future.delayed(Duration(seconds: 3)); // Poll every 3 seconds
@@ -51,7 +51,7 @@ class _RetrievalPage extends State<CollectionScreen> {
         try {
           await pickUpProvider.checkPickUpProgress(jwt, api);
           if (pickUpProvider.pickUpStatus == "finished") {
-            orderStatus = "finished";
+            isOrderFinished = true;
             text = "Order Collected | You can close this page";
             break;
           }

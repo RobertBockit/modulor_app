@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../components/add_to_cart_button/AddToCartButtonProductDetails.dart';
 import '../components/navbar/navbar.dart';
 import '../components/product_card/carrousel_image_product.dart';
 import '../components/product_card/similar_products_row.dart';
@@ -235,25 +236,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             left: 20,
             right: 20,
             bottom: 20,
-            child: ElevatedButton(
-              onPressed: () {
-                for (var i = 0; i < _quantity; i++) widget.onAddToCart();
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColor.modulorRed,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(11),
-                ),
-                padding: EdgeInsets.symmetric(vertical: 16),
-              ),
-              child: Text(
-                'Add to Cart',
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-              ),
-            ),
+            child: AddToCartButtonProductDetails(onAddToCart: () {  widget.onAddToCart(); }, quantity: _quantity,),
           ),
         ],
       ),

@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:modulor_app/components/add_to_cart_button/AddToCartButton.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/colors.dart';
@@ -234,24 +235,7 @@ class _ProductCardState extends State<ProductCard> {
               width: double.infinity,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColor.modulorRed,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 0),
-                  ),
-                  onPressed: widget.onAddToCart,
-                  child: const Text(
-                    "Add to basket",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                      letterSpacing: -0.62,
-                    ),
-                  ),
-                ),
+                child: AddToCartButton(onAddToCart: widget.onAddToCart)
               ),
             ),
           ],
