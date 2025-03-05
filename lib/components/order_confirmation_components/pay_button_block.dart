@@ -52,7 +52,6 @@ class PayButtonBlock extends StatelessWidget {
                   onPressed: () => {
 
                     Provider.of<CartProvider>(context, listen: false).confirmOrder(jwtToken, api, context),
-                    Provider.of<CartProvider>(context, listen: false).clearCart(),
 
                   },
                   style: ElevatedButton.styleFrom(
