@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:modulor_app/providers/app_provider.dart'; // Import AppState class
 import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../constants/colors.dart';
 import '../../providers/cart_provider.dart';
 
 class BottomNavBar extends StatefulWidget {
-  BottomNavBar({Key? key}) : super(key: key);
+  /// Колбэк, вызываемый при нажатии на иконку Home (индекс 0)
+  final VoidCallback? onHomeTap;
+
+  BottomNavBar({Key? key, this.onHomeTap}) : super(key: key);
 
   @override
   _BottomNavBarState createState() => _BottomNavBarState();
@@ -46,9 +48,9 @@ class _BottomNavBarState extends State<BottomNavBar>
 
       _animation =
           Tween<double>(begin: start, end: end).animate(CurvedAnimation(
-        parent: _controller,
-        curve: Curves.easeInOut,
-      ));
+            parent: _controller,
+            curve: Curves.easeInOut,
+          ));
 
       _controller.forward(from: 0); // Trigger the animation
       _previousIndex = newIndex; // Update the previous index
@@ -113,15 +115,17 @@ class _BottomNavBarState extends State<BottomNavBar>
                                 Positioned(
                                   top: -5,
                                   right: 4,
-                                  child: Container(
-                                  width: 16,
+                                  child: SizedBox(
+                                    width: 16,
                                     child: Text(
                                       cartProvider.totalAmount.toString(),
                                       style: TextStyle(
                                         color: appState.selectedIndex == 1
                                             ? AppColor.modulorRed
                                             : Colors.black,
-                                        fontSize: cartProvider.totalAmount > 9 ? 12 : 14,
+                                        fontSize: cartProvider.totalAmount > 9
+                                            ? 12
+                                            : 14,
                                         fontWeight: FontWeight.bold,
                                       ),
                                       textAlign: TextAlign.center,
@@ -158,11 +162,19 @@ class _BottomNavBarState extends State<BottomNavBar>
                     ),
                   ],
                   currentIndex: appState.selectedIndex,
-                  // Pass selectedIndex from appState
-                  selectedItemColor: Color.fromRGBO(228, 0, 0, 1),
+                  selectedItemColor: const Color.fromRGBO(228, 0, 0, 1),
                   unselectedItemColor: Colors.black,
                   onTap: (index) {
+                    // Если нажали на Home (индекс 0)
+                    if (index == 0) {
+                      // Вызвать колбэк onHomeTap, если он передан
+                      widget.onHomeTap?.call();
+                    }
+
+                    // Обновляем индекс
                     appState.updateSelectedIndex(index);
+
+                    // Сбрасываем навигационный стек
                     Navigator.of(context).popUntil((route) => route.isFirst);
                   },
                 ),
