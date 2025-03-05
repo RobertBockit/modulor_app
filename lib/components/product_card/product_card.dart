@@ -17,7 +17,7 @@ class ProductCard extends StatefulWidget {
   final VoidCallback onAddToCart;
   final String description;
 
-  const ProductCard({
+  const   ProductCard({
     Key? key,
     required this.productId,
     required this.imageUrl,
