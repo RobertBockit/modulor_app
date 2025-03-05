@@ -86,12 +86,8 @@ class CartProvider with ChangeNotifier {
   // Method to update the "Select All" button state
   void updateSelectAllState() {
     bool newSelectAllState = areAllItemsSelected;
-    // You can store this state in a variable or use it directly in your UI logic
-    // For example, you might have a boolean field like `isSelectAllEnabled` in your provider:
-    // _isSelectAllEnabled = newSelectAllState;
     notifyListeners();
   }
-
 
   void removeItem(String productId) {
     _order.removeProduct(productId);
@@ -99,23 +95,24 @@ class CartProvider with ChangeNotifier {
   }
 
   void clearCart() {
-    _order.clearOrder();
+    for (var item in List.from(_order.orderItems)) {
+      _order.removeProduct(item.productId);
+    }
     notifyListeners();
   }
 
-  void confirmOrder(jwt, apiUrl, context) async{
+  void confirmOrder(jwt, apiUrl, context) async {
     var response = await http.post(
-      Uri.parse('$apiUrl/orders?populate=*'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': "Bearer $jwt"
-      },
-      body: json.encode({
-        "data": {
-          "orderStatus": "PAID",
-          "issue": true,
-          "items": _order.orderItems.map((element){
-
+        Uri.parse('$apiUrl/orders?populate=*'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': "Bearer $jwt"
+        },
+        body: json.encode({
+          "data": {
+            "orderStatus": "PAID",
+            "issue": true,
+            "items": _order.orderItems.map((element) {
               return {
                 "product": element.productId,
                 "quantity": element.amount,
@@ -125,24 +122,21 @@ class CartProvider with ChangeNotifier {
                   "vatRate": 0.19
                 }
               };
-
             }).toList()
-        }
-      })
+          }
+        })
     );
     if (response.statusCode == 201) {
-      // print(await response.stream.bytesToString());
       var body = json.decode(response.body);
       _order.id = body["data"]["documentId"];
       print(_order.id);
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                RetrievalPage(),
-          ));
-    }
-    else{
+            builder: (context) => RetrievalPage(),
+          )
+      );
+    } else {
       throw Exception(response.statusCode);
     }
   }

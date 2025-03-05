@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:modulor_app/components/order_confirmation_components/order_confirmation_item.dart';
 
 import '../../models/item.dart';
+import 'collection_page_item.dart';
 
-class OrderConfirmationItemList extends StatelessWidget {
+class CollectionPageProductList extends StatelessWidget {
   final List<Item> items;
-  final void Function(String id, num newAmount) changeAmount;
 
-  const OrderConfirmationItemList(
-      {super.key, required this.items, required this.changeAmount});
+  const CollectionPageProductList(
+      {super.key, required this.items});
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-        // color: Colors.white,
+      // color: Colors.white,
         width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -23,7 +23,7 @@ class OrderConfirmationItemList extends StatelessWidget {
         child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
             child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
                 "Items",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
@@ -40,8 +40,8 @@ class OrderConfirmationItemList extends StatelessWidget {
                     itemCount: items.length,
                     itemBuilder: (context, index) {
                       final Item item = items[index];
-                      return OrderConfirmationItem(
-                          changeAmount: changeAmount, item: item);
+                      return CollectionPageItem(
+                           item: item);
                     },
                   ))
             ])));

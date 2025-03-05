@@ -36,7 +36,7 @@ class PickUpProvider with ChangeNotifier{
         'Authorization': "Bearer $jwt"
       },
     );
-    if(response.statusCode==201){
+    if(response.statusCode==200){
       var body = json.decode(response.body);
       pickUpStatus = body["data"]["progress"];
       notifyListeners();
