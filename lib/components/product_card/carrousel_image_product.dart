@@ -3,23 +3,26 @@ import 'package:flutter/material.dart';
 
 import '../../constants/colors.dart';
 
-final List<String> imgList = [
-  'https://i5.walmartimages.com/asr/2f94c814-4fa2-4a5b-a2e4-8c85ee9eab38.abc41b271fbc6e523e1c15e6af231043.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF',
-  'https://bellard.org/bpg/2.png',
-  'https://bellard.org/bpg/2.png',
-  'https://bellard.org/bpg/2.png',
-  'https://bellard.org/bpg/2.png',
-  'https://bellard.org/bpg/2.png',
-];
-
 class CarouselWithIndicatorDemo extends StatefulWidget {
+  final String imageUrl; // Declare imageUrl
+
+  CarouselWithIndicatorDemo({required this.imageUrl}); // Constructor
+
   @override
   State<CarouselWithIndicatorDemo> createState() =>
       _CarouselWithIndicatorState();
 }
 
 class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
+  late List<String> imgList; // Initialize inside initState
   int _current = 0; // Track current index
+
+  @override
+  void initState() {
+    super.initState();
+    imgList = [widget.imageUrl];
+    print(imgList);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +53,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                 // Image with Padding
                 Padding(
                   padding:
-                      const EdgeInsets.all(11.0), // 10px padding from all sides
+                  const EdgeInsets.all(11.0), // 10px padding from all sides
                   child: Center(
                     child: Image.network(
                       item,

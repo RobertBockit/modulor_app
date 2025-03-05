@@ -52,7 +52,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  CarouselWithIndicatorDemo(),
+                  CarouselWithIndicatorDemo(imageUrl: widget.imageUrl,),
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
@@ -65,7 +65,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Kopierpapier HP Office',
+                          widget.title,
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w700),
                         ),
@@ -75,7 +75,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           decoration:
                               BoxDecoration(color: AppColor.backgroundGrey),
                           child: const Text(
-                            "80 g/m², 210 x 297 DIN A4 (SB), 500 Blatt",
+                            "Very Qualitative Materials",
                             style: TextStyle(
                               fontSize: 13,
                               color: AppColor.paragraphBlack,
@@ -88,7 +88,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              "19,99€",
+                              widget.price.toStringAsFixed(2),
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
@@ -100,7 +100,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             Transform.translate(
                               offset: const Offset(0, 1.8),
                               child: Text(
-                                "24,99€",
+                                (widget.price + 5).toStringAsFixed(2),
                                 style: TextStyle(
                                   fontSize: 13,
                                   color: AppColor.paragraphBlack,
@@ -113,7 +113,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             Transform.translate(
                               offset: const Offset(0, 1.8),
                               child: Text(
-                                "(1.39€/m^2)",
+                                "(1.39€/piece)",
                                 style: TextStyle(
                                   fontSize: 13,
                                   color: AppColor.paragraphBlack,
