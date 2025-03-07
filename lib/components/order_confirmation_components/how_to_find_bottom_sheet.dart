@@ -86,7 +86,6 @@ void showHowToFindBottomSheet(BuildContext context) {
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: AppColor.modulorRed,
-                            // fixedSize: Size(190, 63),
                             minimumSize: Size(double.infinity, 63),
                             shape: RoundedRectangleBorder(
                                 borderRadius:

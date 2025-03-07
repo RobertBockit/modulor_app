@@ -53,7 +53,6 @@ class _TopMenuState extends State<TopMenu> {
 
 
 
-    // Если forceCollapsed == true, считаем, что TopMenu уже сжат
     final bool isScrolled = widget.forceCollapsed || _isScrolled;
 
     return Column(
@@ -76,7 +75,6 @@ class _TopMenuState extends State<TopMenu> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Если не сжат – показываем баннер
                   if (!isScrolled)
                     Image.asset(
                       'assets/topbar.png',
@@ -84,7 +82,6 @@ class _TopMenuState extends State<TopMenu> {
                       width: double.infinity,
                     ),
                   const SizedBox(height: 5),
-                  // Поисковая строка
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
@@ -116,7 +113,6 @@ class _TopMenuState extends State<TopMenu> {
                     ),
                   ),
                   const SizedBox(height: 5),
-                  // Локация
                   Row(
                     children: const [
                       Icon(Icons.location_pin, color: Colors.black, size: 16),

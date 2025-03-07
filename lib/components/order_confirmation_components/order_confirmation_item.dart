@@ -18,7 +18,6 @@ class OrderConfirmationItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Product Image
           Stack(
             children: [
               ClipRRect(
@@ -33,9 +32,9 @@ class OrderConfirmationItem extends StatelessWidget {
               Positioned.fill(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.04), // 4% black overlay
+                    color: Colors.black.withOpacity(0.04),
                     borderRadius: BorderRadius.circular(
-                        11), // Match the image's border radius
+                        11),
                   ),
                 ),
               ),
@@ -74,18 +73,17 @@ class OrderConfirmationItem extends StatelessWidget {
                       ),
                     ),
 
-                    // Quantity Selector
                     Row(
                       children: [
                         Stack(
                           alignment: Alignment.center,
                           children: [
                             Container(
-                              width: 24, // Adjust size as needed
+                              width: 24,
                               height: 24,
                               decoration: BoxDecoration(
                                 color: Color.fromRGBO(241, 243, 244,
-                                    1), // Use your desired grey color
+                                    1),
                                 shape: BoxShape.circle,
                               ),
                             ),
@@ -109,11 +107,11 @@ class OrderConfirmationItem extends StatelessWidget {
                           alignment: Alignment.center,
                           children: [
                             Container(
-                              width: 24, // Adjust size as needed
+                              width: 24,
                               height: 24,
                               decoration: BoxDecoration(
                                 color: Color.fromRGBO(241, 243, 244,
-                                    1), // Use your desired grey color
+                                    1),
                                 shape: BoxShape.circle,
                               ),
                             ),

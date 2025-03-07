@@ -32,7 +32,6 @@ class OrderConfirmationItemList extends StatelessWidget {
                   constraints: BoxConstraints(
                     maxHeight: double.infinity,
                   ),
-                  // height: items.isNotEmpty ? size.height / size.height - items.length : size.height / 2,
                   width: double.infinity,
                   child: ListView.builder(
                     shrinkWrap: true,

@@ -37,7 +37,6 @@ class ProductCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(11),
                 child: Image.network(
                   'https://cdn.modulor.de/products/dxzk9_3015186-st/1_1920_1920_r_soulbottle_trinkflasche_mit_tragegriff_edelstahl_schillernd_0_5_l_bugelverschluss_utopia_light.jpg',
-                  // Sample image
                   width: 100,
                   height: 100,
                   fit: BoxFit.cover,
@@ -46,7 +45,7 @@ class ProductCard extends StatelessWidget {
               Container(
                 width: 100,
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.04), // 4% black overlay
+                  color: Colors.black.withOpacity(0.04),
                   borderRadius: BorderRadius.circular(11),
                 ),
               ),

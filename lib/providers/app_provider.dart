@@ -2,22 +2,22 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import '../models/product.dart'; // Make sure to import this for ChangeNotifier
+import '../models/product.dart';
 
 
 class AppProvider with ChangeNotifier {
   int _selectedIndex = 0;
   var apiUrl = "https://mad-shop.onrender.com/api";
 
-  static var items; // Initial selected index
+  static var items;
 
   late final Future<String> _jwtToken;
 
-  int get selectedIndex => _selectedIndex; // Getter for selectedIndex
+  int get selectedIndex => _selectedIndex;
 
   void updateSelectedIndex(int newIndex) {
     _selectedIndex = newIndex;
-    notifyListeners(); // Notify listeners when the index changes
+    notifyListeners();
   }
 
   late final Future<List<Product>> _products;

@@ -11,12 +11,10 @@ class CategoriesRow extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: const [
-                CategoriesItem(imagePath: 'assets/stäbe.png', label: 'Stäbe'),
-                CategoriesItem(imagePath: 'assets/formenbau.png', label: 'Formenbau'),
-                CategoriesItem(imagePath: 'assets/modelfiguren.png', label: 'Modelfiguren'),
-                CategoriesItem(imagePath: 'assets/werkzeug.png', label: 'Werkzeug'),
-                CategoriesItem(imagePath: 'assets/werkzeug.png', label: 'Werkzeug'),
-                CategoriesItem(imagePath: 'assets/werkzeug.png', label: 'Werkzeug'),
+                CategoriesItem(imagePath: 'https://cdn.modulor.de/products/caea/1_928_928_r_buche_rundstab.jpg', label: 'Stäbe'),
+                CategoriesItem(imagePath: 'https://cdn.modulor.de/products/oaad/1_928_928_r_formenbau_plastilin.jpg', label: 'Formenbau'),
+                CategoriesItem(imagePath: 'https://cdn.modulor.de/products/tlgp/1_928_928_r_preiser_detail_figuren_unbemalt_weiss_1_50.jpg', label: 'Modelfiguren'),
+                CategoriesItem(imagePath: 'https://cdn.modulor.de/products/h9cgw/1_928_928_r_ecobra_schneidematte_top_qualitat_grun_schwarz.jpg', label: 'Werkzeug'),
 
               ],
             ),

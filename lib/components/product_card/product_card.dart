@@ -44,15 +44,13 @@ class _ProductCardState extends State<ProductCard> {
     _attachImageListener();
   }
 
-  /// Attach a listener to the image stream so we can get its dimensions
-  /// when the image finishes loading.
+
   void _attachImageListener() {
     final imageConfiguration = const ImageConfiguration();
     _imageStream = _networkImage.resolve(imageConfiguration);
 
     _imageStreamListener = ImageStreamListener(
           (ImageInfo imageInfo, bool synchronousCall) {
-        // Check if the widget is still mounted before calling setState.
         if (!mounted) return;
         final image = imageInfo.image;
         _updateContainerHeight(image.width, image.height);
@@ -65,23 +63,13 @@ class _ProductCardState extends State<ProductCard> {
     _imageStream?.addListener(_imageStreamListener);
   }
 
-  /// Update container height based on the image's aspect ratio.
-  /// The mapping is defined for aspect ratios between 0.5 and 2.0:
-  /// - For an aspect ratio of 0.5 (tall image), height = 300px.
-  /// - For an aspect ratio of 2.0 (wide image), height = 180px.
-  /// Intermediate values are linearly interpolated.
+
   void _updateContainerHeight(int imageWidth, int imageHeight) {
     double aspectRatio = imageWidth / imageHeight;
 
-    // Normalize the aspect ratio to a 0.0 to 1.0 range:
-    // aspectRatio == 0.5  -> t = 0.0 (tall image, 300px)
-    // aspectRatio == 2.0  -> t = 1.0 (wide image, 180px)
     double t = ((aspectRatio - 0.5) / (1.5 - 0.5)).clamp(0.0, 1.0);
 
-    // Interpolate between 300px (tall) and 180px (wide)
     double newContainerHeight = 225 - (225 - 140) * t;
-    //debugPrint(
-        //"Image size: $imageWidth x $imageHeight, aspect ratio: $aspectRatio, container height: $newContainerHeight");
 
     if (mounted) {
       setState(() {
@@ -92,7 +80,6 @@ class _ProductCardState extends State<ProductCard> {
 
   @override
   void dispose() {
-    // Remove the image stream listener to prevent callbacks after disposal.
     _imageStream?.removeListener(_imageStreamListener);
     super.dispose();
   }
@@ -101,14 +88,13 @@ class _ProductCardState extends State<ProductCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigate to the product details page.
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => ProductDetailsPage(
               title: widget.title,
               imageUrl: widget.imageUrl,
-              price: widget.price.toDouble(), // Adjust if needed.
+              price: widget.price.toDouble(),
               onAddToCart: () {
                 Provider.of<CartProvider>(context, listen: false).addItem(
                   Item(
@@ -133,7 +119,6 @@ class _ProductCardState extends State<ProductCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Image Container with dynamic height.
             ClipRRect(
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(11),
@@ -160,7 +145,6 @@ class _ProductCardState extends State<ProductCard> {
                 ],
               ),
             ),
-            // Product Title.
             Padding(
               padding: const EdgeInsets.only(top: 1.0),
               child: Text(
@@ -175,7 +159,6 @@ class _ProductCardState extends State<ProductCard> {
               ),
             ),
             const SizedBox(height: 3),
-            // Additional Info.
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 0),
               child: Container(
@@ -194,7 +177,6 @@ class _ProductCardState extends State<ProductCard> {
               ),
             ),
             const SizedBox(height: 4),
-            // Pricing Section.
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 0),
               child: Baseline(
@@ -230,7 +212,6 @@ class _ProductCardState extends State<ProductCard> {
               ),
             ),
             const SizedBox(height: 5),
-            // Add to Basket Button.
             SizedBox(
               width: double.infinity,
               child: Padding(

@@ -11,7 +11,7 @@ import '../components/pickup_location/pickup_location.dart';
 import '../constants/colors.dart';
 import '../providers/app_provider.dart';
 import '../providers/cart_provider.dart';
-import 'collection_screen.dart'; // Import the new page
+import 'collection_screen.dart';
 
 class RetrievalPage extends StatefulWidget {
   const RetrievalPage({super.key});
@@ -37,7 +37,7 @@ class _RetrievalPageState extends State<RetrievalPage> {
 
   void checkPickUpProgressRepeatedly(String jwt, String api) async {
     while (mounted) {
-      await Future.delayed(Duration(seconds: 3)); // Poll every 3 seconds
+      await Future.delayed(Duration(seconds: 3));
 
       var pickUpProvider = Provider.of<PickUpProvider>(context, listen: false);
 
@@ -75,7 +75,7 @@ class _RetrievalPageState extends State<RetrievalPage> {
             left: false,
             right: false,
             child: Container(
-              color: AppColor.backgroundGrey, // Set the background color to grey
+              color: AppColor.backgroundGrey,
               child: Column(
                 children: [
                   Align(

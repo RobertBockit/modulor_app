@@ -8,7 +8,7 @@ import '../../models/order_item.dart';
 class OrdersList extends StatefulWidget {
   final bool isActive;
 
-  const OrdersList({super.key, required this.isActive}); // Правильное объявление конструктора
+  const OrdersList({super.key, required this.isActive});
 
   @override
   State<OrdersList> createState() => _OrdersList();
@@ -32,7 +32,7 @@ class _OrdersList extends State<OrdersList> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  widget.isActive ? "Active orders" : "All orders", // Используем widget.isActive
+                  widget.isActive ? "Active orders" : "All orders",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                 ),
                 FutureBuilder<List<OrderItem>>(
