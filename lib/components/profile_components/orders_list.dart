@@ -32,7 +32,7 @@ class _OrdersList extends State<OrdersList> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  widget.isActive ? "Active orders" : "All orders",
+                  widget.isActive ? "Active orders" : "History",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                 ),
                 FutureBuilder<List<OrderItem>>(
@@ -49,6 +49,7 @@ class _OrdersList extends State<OrdersList> {
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
+
                         final OrderItem item = snapshot.data![index];
                         return OrderListItem(item: item);
                       },

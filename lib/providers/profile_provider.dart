@@ -14,19 +14,33 @@ class ProfileProvider extends ChangeNotifier {
   Future<List<OrderItem>> get allOrders=>_allOrders;
   Future<List<OrderItem>> get activeOrders=>_activeOrders;
 
+  List<OrderItem> sortOrders(arr){
+    List<OrderItem> newArr = arr;
+    newArr.sort((a,b) {
+      return b.date.substring(0, 2).compareTo(a.date.substring(0, 2));
+    });
+    newArr.sort((a,b) {
+      return b.date.substring(3).compareTo(a.date.substring(3));
+    });
+    return newArr;
+  }
+
 
   Future<List<OrderItem>> getAllOrders(apiUrl, jwt) async {
     var response = await http.get(
-      Uri.parse('$apiUrl/orders?populate=*'),
+      Uri.parse('$apiUrl/orders?populate=*&pagination[page]=2&pagination[pageSize]=25'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': "Bearer $jwt"
       },
     );
+    print(response.statusCode);
     if (response.statusCode == 200) {
       var body = json.decode(response.body);
+      print("body");
       print(body);
-      return body["data"].map<OrderItem>((e) => OrderItem.fromJson(e)).toList();
+      List<OrderItem> arr = body["data"].map<OrderItem>((e) => OrderItem.fromJson(e)).toList();
+      return sortOrders(arr);
     } else {
       throw Exception(response.statusCode);
     }
@@ -34,7 +48,7 @@ class ProfileProvider extends ChangeNotifier {
 
   Future<List<OrderItem>> getActiveOrders(apiUrl, jwt) async {
     var response = await http.get(
-      Uri.parse('$apiUrl/orders?populate=*&filters[\$not][\$or][0][orderStatus][\$eq]=CANCELED&filters[\$not][\$or][1][orderStatus][\$eq]=COMPLETED'),
+      Uri.parse('$apiUrl/orders?populate=*&filters[\$not][\$or][0][orderStatus][\$eq]=CANCELED&filters[\$not][\$or][1][orderStatus][\$eq]=COMPLETED&filters[\$not][\$or][2][orderStatus][\$eq]=UNPAID'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': "Bearer $jwt"
@@ -43,7 +57,8 @@ class ProfileProvider extends ChangeNotifier {
     if (response.statusCode == 200) {
       var body = json.decode(response.body);
 
-      return body["data"].map<OrderItem>((e) => OrderItem.fromJson(e)).toList();
+      List<OrderItem>arr = body["data"].map<OrderItem>((e) => OrderItem.fromJson(e)).toList();
+      return sortOrders(arr);
     } else {
       throw Exception(response.statusCode);
     }
