@@ -77,37 +77,33 @@ class _CartState extends State<Cart> {
               bottom: 20,
               left: 20,
               right: 20,
-              child: Material(
-                elevation: 8,
-                borderRadius: BorderRadius.circular(11),
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (order.totalAmount != 0) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const OrderConfirmationPage(),
-                        ),
-                      );
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    backgroundColor: order.totalAmount != 0
-                        ? AppColor.modulorRed
-                        : AppColor.modulorRedDisabled,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(11),
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+              child: ElevatedButton(
+                onPressed: () {
+                  if (order.totalAmount != 0) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const OrderConfirmationPage(),
+                      ),
+                    );
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  backgroundColor: order.totalAmount != 0
+                      ? AppColor.modulorRed
+                      : AppColor.modulorRedDisabled,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(11),
                   ),
-                  child: Text(
-                    order.totalAmount != 0
-                        ? 'Checkout ${order.totalAmount} ${order.totalAmount == 1 ? "item" : "items"} (${order.totalPrice.toStringAsFixed(2)}€)'
-                        : 'Cart is empty, add items now!',
-                    style: const TextStyle(fontSize: 16),
-                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+                child: Text(
+                  order.totalAmount != 0
+                      ? 'Checkout ${order.totalAmount} ${order.totalAmount == 1 ? "item" : "items"} (${order.totalPrice.toStringAsFixed(2)}€)'
+                      : 'Cart is empty, add items now!',
+                  style: const TextStyle(fontSize: 16),
                 ),
               ),
             ),

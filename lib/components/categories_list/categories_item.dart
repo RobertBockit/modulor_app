@@ -19,8 +19,21 @@ class CategoriesItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               color: Colors.grey.shade200,
             ),
-            child: Center(
-              child: Image.asset(imagePath, width: 60, height: 60),
+            clipBehavior: Clip.hardEdge,
+            child: Stack(
+              children: [
+                Image.network(
+                  imagePath,
+                  fit: BoxFit.cover,
+                  width: 80,
+                  height: 80,
+                ),
+                Container(
+                  width: 80,
+                  height: 80,
+                  color: Colors.black.withOpacity(0.04),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 8),
