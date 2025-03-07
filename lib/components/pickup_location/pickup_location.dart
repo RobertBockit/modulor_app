@@ -8,11 +8,10 @@ class PickUpLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // color: Colors.white,
-        width: double.infinity, // Растягиваем по ширине
+        width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(11), // Закругление углов
+          borderRadius: BorderRadius.circular(11),
         ),
         child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
@@ -39,7 +38,7 @@ class PickUpLocation extends StatelessWidget {
                   ),
                   onTap: () {
                     showHowToFindBottomSheet(
-                        context); // Call the modal function
+                        context);
                   },
                 )
               ],

@@ -24,7 +24,7 @@ class ProductDetailsPage extends StatefulWidget {
 }
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
-  int _quantity = 1; // Initializes at 1 every time the page is opened
+  int _quantity = 1;
 
   void _incrementQuantity() {
     setState(() {
@@ -138,11 +138,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                 alignment: Alignment.center,
                                 children: [
                                   Container(
-                                    width: 24, // Adjust size as needed
+                                    width: 24,
                                     height: 24,
                                     decoration: BoxDecoration(
                                       color: Color.fromRGBO(241, 243, 244,
-                                          1), // Use your desired grey color
+                                          1),
                                       shape: BoxShape.circle,
                                     ),
                                   ),
@@ -192,8 +192,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         ),
                         const SizedBox(height: 10),
                         const Divider(
-                          thickness: 1, // Line width
-                          color: AppColor.backgroundGrey, // Line color
+                          thickness: 1,
+                          color: AppColor.backgroundGrey,
                         ),
                         const SizedBox(height: 10),
                         Text(
@@ -204,7 +204,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         similarProductsSection(),
                         const SizedBox(
                             height:
-                                80), // Extra space so content doesn't get hidden under button
+                                80),
                       ],
                     ),
                   ),
@@ -217,11 +217,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             left: 20,
             child: InkWell(
               onTap: () {
-                Navigator.pop(context); // Navigate back
+                Navigator.pop(context);
               },
               borderRadius: BorderRadius.circular(50),
               child: Container(
-                width: 50, // Ensures a perfect circle
+                width: 50,
                 height: 50,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -240,7 +240,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavBar(), // Navbar remains fixed
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }

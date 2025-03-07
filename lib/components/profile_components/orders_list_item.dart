@@ -16,7 +16,6 @@ class OrderListItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Product Image
           Stack(
             children: [
               ClipRRect(
@@ -31,9 +30,9 @@ class OrderListItem extends StatelessWidget {
               Positioned.fill(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.04), // 4% black overlay
+                    color: Colors.black.withOpacity(0.04),
                     borderRadius: BorderRadius.circular(
-                        11), // Match the image's border radius
+                        11),
                   ),
                 ),
               ),
@@ -74,7 +73,6 @@ class OrderListItem extends StatelessWidget {
                           ),
                         ),
 
-                        // Quantity Selector
                         Row(
                           children: [
                             Text(

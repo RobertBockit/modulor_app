@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import '../../constants/colors.dart';
 
 class CarouselWithIndicatorDemo extends StatefulWidget {
-  final String imageUrl; // Declare imageUrl
+  final String imageUrl;
 
-  CarouselWithIndicatorDemo({required this.imageUrl}); // Constructor
+  CarouselWithIndicatorDemo({required this.imageUrl});
 
   @override
   State<CarouselWithIndicatorDemo> createState() =>
@@ -14,8 +14,8 @@ class CarouselWithIndicatorDemo extends StatefulWidget {
 }
 
 class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
-  late List<String> imgList; // Initialize inside initState
-  int _current = 0; // Track current index
+  late List<String> imgList;
+  int _current = 0;
 
   @override
   void initState() {
@@ -38,7 +38,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
             enlargeCenterPage: false,
             onPageChanged: (index, reason) {
               setState(() {
-                _current = index; // Update index on slide change
+                _current = index;
               });
             },
           ),
@@ -50,10 +50,9 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                     color: Colors.white,
                   ),
                 ),
-                // Image with Padding
                 Padding(
                   padding:
-                  const EdgeInsets.all(11.0), // 10px padding from all sides
+                  const EdgeInsets.all(11.0),
                   child: Center(
                     child: Image.network(
                       item,
@@ -63,7 +62,6 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                     ),
                   ),
                 ),
-                // Black Overlay with 4% Opacity
                 Positioned.fill(
                   child: Container(
                     color: Colors.black.withOpacity(0.04),
@@ -74,7 +72,6 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
           }).toList(),
         ),
 
-        // Indicator Dots
         Container(
           padding: EdgeInsets.only(top: 20, bottom: 20),
           color: AppColor.backgroundGrey,

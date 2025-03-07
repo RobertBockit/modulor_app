@@ -9,7 +9,7 @@ class FeaturedCategories extends StatelessWidget {
       child: Container(
         child: SingleChildScrollView(
           scrollDirection:
-              Axis.horizontal, // Make the Row scrollable horizontally
+              Axis.horizontal,
           child: Row(
             children: List.generate(
               5,

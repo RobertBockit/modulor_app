@@ -3,12 +3,12 @@ import '../../constants/colors.dart';
 
 class SelectAllCheckbox extends StatefulWidget {
   final bool isChecked;
-  final Function(bool) onTap; // Callback function to handle tap events
+  final Function(bool) onTap;
 
   const SelectAllCheckbox({
     Key? key,
     required this.isChecked,
-    required this.onTap, // Add the callback as a required parameter
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -27,7 +27,6 @@ class _SelectAllCheckboxState extends State<SelectAllCheckbox> {
   @override
   void didUpdateWidget(SelectAllCheckbox oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // Update the state if the parent widget changes the isChecked value
     if (oldWidget.isChecked != widget.isChecked) {
       setState(() {
         isChecked = widget.isChecked;
@@ -40,9 +39,9 @@ class _SelectAllCheckboxState extends State<SelectAllCheckbox> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          isChecked = !isChecked; // Toggle the checkbox state
+          isChecked = !isChecked;
         });
-        widget.onTap(isChecked); // Execute the callback function
+        widget.onTap(isChecked);
       },
       child: Container(
         width: 35,

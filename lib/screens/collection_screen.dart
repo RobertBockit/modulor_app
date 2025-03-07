@@ -43,7 +43,7 @@ class _RetrievalPage extends State<CollectionScreen> {
         : Color.fromRGBO(238, 120, 10, 1);
     void checkOrderRepeatedly(String jwt, String api) async {
       while (mounted) {
-        await Future.delayed(Duration(seconds: 3)); // Poll every 3 seconds
+        await Future.delayed(Duration(seconds: 3));
 
         var pickUpProvider =
             Provider.of<PickUpProvider>(context, listen: false);
@@ -75,7 +75,6 @@ class _RetrievalPage extends State<CollectionScreen> {
         right: false,
         child: Container(
           color: AppColor.backgroundGrey,
-          // Set the background color to grey
           child: Column(
             children: [
               Align(

@@ -39,7 +39,7 @@ class _AddToCartButtonState extends State<AddToCartButton> {
         ),
         padding: const EdgeInsets.symmetric(vertical: 0),
       ),
-      onPressed: _isDisabled ? () {} : _handlePress, // Keep onPressed defined to prevent default animation delay
+      onPressed: _isDisabled ? () {} : _handlePress,
       child: Text(
         _isDisabled ? "Added to cart" : "Add to basket",
         style: const TextStyle(

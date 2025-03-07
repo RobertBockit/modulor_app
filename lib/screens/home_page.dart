@@ -27,7 +27,6 @@ class HomePage extends StatelessWidget {
         body: Column(
           children: [
 
-            // Основное содержимое
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(right: 12, left: 12, top: 5),

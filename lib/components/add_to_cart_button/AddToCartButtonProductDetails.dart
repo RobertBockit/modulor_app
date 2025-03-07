@@ -40,7 +40,6 @@ class _AddToCartButtonState extends State<AddToCartButtonProductDetails> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: _isDisabled ? () {} : _handlePress,
-      // Keep onPressed defined to prevent default animation delay
       style: ElevatedButton.styleFrom(
         backgroundColor: _isDisabled
             ? AppColor.modulorRed.withOpacity(0.7)

@@ -17,7 +17,7 @@ class ToggleCheckBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        toggleIsSelected(itemId, !isChecked); // Toggle the selection state
+        toggleIsSelected(itemId, !isChecked);
       },
       child: Container(
         width: 35,

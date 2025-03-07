@@ -24,7 +24,6 @@ class PayButtonBlock extends StatelessWidget {
     Provider.of<AppProvider>(context, listen: false).jwt.then((val){jwtToken = val;});
     var api = Provider.of<AppProvider>(context, listen: false).apiUrl;
     return Container(
-        // color: Colors.white,
         width: double.infinity,
         height: 92,
         decoration: BoxDecoration(

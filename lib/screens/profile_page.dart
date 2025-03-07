@@ -7,7 +7,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.backgroundGrey,
-      body: SingleChildScrollView(// Добавляем скролл всей страницы
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(

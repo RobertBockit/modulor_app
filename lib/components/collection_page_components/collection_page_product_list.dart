@@ -14,7 +14,6 @@ class CollectionPageProductList extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      // color: Colors.white,
         width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -32,7 +31,6 @@ class CollectionPageProductList extends StatelessWidget {
                   constraints: BoxConstraints(
                     maxHeight: double.infinity,
                   ),
-                  // height: items.isNotEmpty ? size.height / size.height - items.length : size.height / 2,
                   width: double.infinity,
                   child: ListView.builder(
                     shrinkWrap: true,

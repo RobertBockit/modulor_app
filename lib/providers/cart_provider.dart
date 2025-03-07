@@ -59,7 +59,6 @@ class CartProvider with ChangeNotifier {
     return _order.orderItems.every((el) => el.isSelected);
   }
 
-  // Toggle selection for a single item
   void toggleIsSelected(String id, bool isSelected) {
     for (var el in _order.orderItems) {
       if (el.productId == id) {
@@ -69,21 +68,18 @@ class CartProvider with ChangeNotifier {
     _order.calculateTotalAmount();
     _order.calculateTotalPrice();
 
-    // Notify listeners to update the UI
     notifyListeners();
   }
 
-  // Toggle selection for all items
   void toggleAllSelected(bool isSelected) {
     for (var el in _order.orderItems) {
-      el.isSelected = isSelected; // Toggle the selection for all items
+      el.isSelected = isSelected;
     }
     _order.calculateTotalAmount();
     _order.calculateTotalPrice();
     notifyListeners();
   }
 
-  // Method to update the "Select All" button state
   void updateSelectAllState() {
     bool newSelectAllState = areAllItemsSelected;
     notifyListeners();

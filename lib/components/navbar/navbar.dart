@@ -165,16 +165,10 @@ class _BottomNavBarState extends State<BottomNavBar>
                   selectedItemColor: const Color.fromRGBO(228, 0, 0, 1),
                   unselectedItemColor: Colors.black,
                   onTap: (index) {
-                    // Если нажали на Home (индекс 0)
                     if (index == 0) {
-                      // Вызвать колбэк onHomeTap, если он передан
                       widget.onHomeTap?.call();
                     }
-
-                    // Обновляем индекс
                     appState.updateSelectedIndex(index);
-
-                    // Сбрасываем навигационный стек
                     Navigator.of(context).popUntil((route) => route.isFirst);
                   },
                 ),

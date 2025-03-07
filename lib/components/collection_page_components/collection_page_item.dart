@@ -13,7 +13,6 @@ class CollectionPageItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Product Image Column
           Column(
             children: [
               ClipRRect(
@@ -30,7 +29,6 @@ class CollectionPageItem extends StatelessWidget {
 
           const SizedBox(width: 20),
 
-          // Title and Price Column
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

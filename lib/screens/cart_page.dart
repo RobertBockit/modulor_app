@@ -59,7 +59,6 @@ class _CartState extends State<Cart> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  // Список товаров
                   Expanded(
                     child: Consumer<CartProvider>(
                       builder: (context, order, child) {
@@ -74,7 +73,6 @@ class _CartState extends State<Cart> {
                 ],
               ),
             ),
-            // Плавающая кнопка Checkout
             Positioned(
               bottom: 20,
               left: 20,

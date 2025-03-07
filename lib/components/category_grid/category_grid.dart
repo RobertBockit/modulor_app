@@ -26,7 +26,7 @@ class CategoryGrid extends StatelessWidget {
                     ),
                   ),
                   Transform.translate(
-                    offset: const Offset(0, -60), // Moves grid 20px up
+                    offset: const Offset(0, -60),
                     child: GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),

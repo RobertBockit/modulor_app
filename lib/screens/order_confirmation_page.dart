@@ -26,7 +26,7 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
         left: false,
         right: false,
         child: Container(
-          color: AppColor.backgroundGrey, // Set the background color to grey
+          color: AppColor.backgroundGrey,
           child: Column(
             children: [
               Align(
